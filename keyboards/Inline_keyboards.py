@@ -29,7 +29,7 @@ def main_info_keyboard(locale: str) -> InlineKeyboardMarkup:
     kb.row(
         types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_how_to_earn_more'),
-            url="https://start.poools.top"
+            callback_data="main_info_how_to_earn_more"
         ),
     )
     kb.row(
@@ -53,6 +53,23 @@ def main_info_keyboard(locale: str) -> InlineKeyboardMarkup:
 
 def back_keyboard(locale: str) -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_back'),
+            callback_data="main_info_back"
+        ),
+    )
+    return kb.as_markup(resize_keyboard=True)
+
+
+def how_to_earn_more_keyboard(locale: str) -> InlineKeyboardMarkup:
+    kb = InlineKeyboardBuilder()
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_ratings'),
+            callback_data="main_info_ratings"
+        ),
+    )
     kb.row(
         types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_back'),

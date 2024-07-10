@@ -5,7 +5,7 @@ from handlers.states import Greeting
 from keyboards.Inline_keyboards import (
     main_info_keyboard, back_keyboard, settings_keyboard,
     ratings_keyboard, notifications_keyboard,
-    language_keyboard, settings_logout_keyboard, service_keyboard
+    language_keyboard, settings_logout_keyboard, service_keyboard, how_to_earn_more_keyboard
 )
 from utils.locale_parser import get_message_text
 import database as db
@@ -49,6 +49,16 @@ async def send_contacts(callback: types.CallbackQuery, state: FSMContext):
     )
 
 
+@router.callback_query(StateFilter(Greeting.main_menu), F.data.startswith("main_info_how_to_earn_more"))
+async def send_contacts(callback: types.CallbackQuery, state: FSMContext):
+    await edit_message_and_set_state(
+        callback, state,
+        get_message_text(db.get_user_locale(callback.from_user), "how_to_earn_more"),
+        how_to_earn_more_keyboard(db.get_user_locale(callback.from_user)),
+        Greeting.menu_page
+    )
+
+
 @router.callback_query(StateFilter(Greeting.main_menu), F.data.startswith("main_info_service"))
 async def send_service_info(callback: types.CallbackQuery, state: FSMContext):
     await edit_message_and_set_state(
@@ -86,7 +96,7 @@ async def send_after_logout(callback: types.CallbackQuery, state: FSMContext):
     )
 
 
-@router.callback_query(StateFilter(Greeting.main_menu), F.data.startswith("main_info_ratings"))
+@router.callback_query(F.data.startswith("main_info_ratings"))
 async def send_ratings(callback: types.CallbackQuery, state: FSMContext):
     ratings_msg = configure_rating_message(db.get_user_locale(callback.from_user), 7)
     await edit_message_and_set_state(
