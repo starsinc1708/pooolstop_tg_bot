@@ -11,6 +11,7 @@ import urllib3
 
 urllib3.disable_warnings()
 
+
 async def main():
     logging.basicConfig(level=logging.INFO)
 
