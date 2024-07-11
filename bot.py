@@ -7,7 +7,9 @@ from handlers import callbacks, global_commands
 from utils.notification_sender import send_rating_notification
 from utils.state_manager import set_users_states
 from dotenv import load_dotenv
+import urllib3
 
+urllib3.disable_warnings()
 
 async def main():
     logging.basicConfig(level=logging.INFO)
