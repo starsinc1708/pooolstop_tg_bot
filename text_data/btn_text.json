@@ -1,0 +1,150 @@
+{
+    "btn_yes": {
+        "ru": "Да",
+        "en": "Yes"
+    },
+    "btn_no": {
+        "ru": "Нет",
+        "en": "No"
+    },
+    "btn_ratings": {
+        "ru": "\uD83D\uDCC8 Следить за рейтингом пулов",
+        "en": "\uD83D\uDCC8 Monitor the rating of pools"
+    },
+    "btn_learn_more": {
+        "ru": "Узнать еще больше о Poools.top",
+        "en": "Learn more about Poools.top"
+    },
+    "btn_continue": {
+        "ru": "Продолжить без регистрации",
+        "en": "Continue without registration"
+    },
+    "btn_next": {
+        "ru": "Продолжить >",
+        "en": "Continue >"
+    },
+    "btn_profile": {
+        "ru": "\uD83D\uDCBB Личный кабинет Рoools.top ",
+        "en": "\uD83D\uDCBB Рoools.top Profile"
+    },
+    "btn_service": {
+        "ru": "Сервис Рoools.top",
+        "en": "Рoools.top service"
+    },
+    "btn_who_we_are": {
+        "ru": "Кто мы?",
+        "en": "Who we are?"
+    },
+    "btn_our_contacts": {
+        "ru": "\uD83D\uDCE8 Наши контакты",
+        "en": "\uD83D\uDCE8 Our contacts"
+    },
+    "btn_cmd_list": {
+        "ru": "Команды бота",
+        "en": "Bot commands"
+    },
+    "btn_sync": {
+        "ru": "\uD83D\uDD04 Синхронизировать аккаунты",
+        "en": "\uD83D\uDD04 Synchronize accounts"
+    },
+    "btn_register": {
+        "ru": "✍\uD83C\uDFFB Зарегистрироваться",
+        "en": "✍\uD83C\uDFFB Register"
+    },
+    "btn_back": {
+        "ru": "< Назад",
+        "en": "< Back"
+    },
+    "btn_to_menu": {
+        "ru": "< Назад в меню",
+        "en": "< Back to menu"
+    },
+    "btn_register_in_webapp": {
+        "ru": "\uD83D\uDCF1 Регистрация в приложении",
+        "en": "\uD83D\uDCF1 Registration in the app"
+    },
+    "btn_already_exists": {
+        "ru": "Аккаунт уже есть",
+        "en": "Already have account"
+    },
+    "btn_settings": {
+        "ru": "⚙️ Настройки",
+        "en": "⚙️ Settings"
+    },
+    "btn_notifications": {
+        "ru": "\uD83D\uDD14 Настройки Уведомлений",
+        "en": "\uD83D\uDD14 Notifications settings"
+    },
+    "btn_logout": {
+        "ru": "Выйти из аккаунта",
+        "en": "Log out of your account"
+    },
+    "btn_period_7": {
+        "ru": "7д",
+        "en": "7d"
+    },
+    "btn_period_30": {
+        "ru": "30д",
+        "en": "30d"
+    },
+    "btn_period_60": {
+        "ru": "60д",
+        "en": "60d"
+    },
+    "btn_period_90": {
+        "ru": "90д",
+        "en": "90d"
+    },
+    "btn_period_180": {
+        "ru": "180д",
+        "en": "180d"
+    },
+    "btn_period_365": {
+        "ru": "365д",
+        "en": "365d"
+    },
+    "btn_unsubscribe": {
+        "ru": "\uD83D\uDD15 Отписаться от уведомлений",
+        "en": "\uD83D\uDD15 Unsubscribe from notifications "
+    },
+    "btn_language": {
+        "ru": "\uD83C\uDDF7\uD83C\uDDFA Язык бота",
+        "en": "\uD83C\uDDEC\uD83C\uDDE7 Language"
+    },
+    "btn_en": {
+        "ru": "\uD83C\uDDEC\uD83C\uDDE7 English",
+        "en": "\uD83C\uDDEC\uD83C\uDDE7 English"
+    },
+    "btn_ru": {
+        "ru": "\uD83C\uDDF7\uD83C\uDDFA Русский",
+        "en": "\uD83C\uDDF7\uD83C\uDDFA Русский"
+    },
+    "btn_statistics": {
+        "ru": "\uD83D\uDCCA СТАТИСТИКА",
+        "en": "\uD83D\uDCCA STATISTICS"
+    },
+    "btn_workers": {
+        "ru": "\uD83D\uDEE0 ВОРКЕРЫ",
+        "en": "\uD83D\uDEE0 WORKERS"
+    },
+    "btn_wallet": {
+        "ru": "\uD83D\uDCB5 КОШЕЛЁК",
+        "en": "\uD83D\uDCB5 WALLET"
+    },
+    "btn_webapp_open": {
+        "ru": "\uD83D\uDCF1 Открыть в приложении",
+        "en": "\uD83D\uDCF1 Open in the app"
+    },
+    "btn_call_manager": {
+        "ru": "Позвать менеджера",
+        "en": "Call manager"
+    },
+    "btn_question": {
+        "ru": "Задать вопрос",
+        "en": "Ask question"
+    },
+    "btn_how_to_earn_more": {
+        "ru": "\uD83C\uDFC3 Как зарабатывать больше?",
+        "en": "\uD83C\uDFC3 How to earn more?"
+    }
+}

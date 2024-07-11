@@ -1,0 +1,130 @@
+{
+    "msg_after_start": {
+        "ru": "\uD83E\uDD16 Наш Бот — ваш ключ к самым высокодоходным пулам для майнинга. \n\n\uD83D\uDD14 Получай уведомления о самых прибыльных пулах, следи за своими доходами прямо из Телеграма! \uD83D\uDCB8\n\n\uD83D\uDC40 Если Вы ещё не в нашей команде, то самое время узнать побольше => <a href='https://telegra.ph/O-nas-04-30-6'>о нас</a>",
+        "en": "\uD83E\uDD16 Our Bot is your key to the most profitable mining pools. \n\n\uD83D\uDD14 Get notifications about the most profitable pools, keep track of your income directly from Telegram! \uD83D\uDCB8\n\n\uD83D\uDC40 If you are not on our team yet, then it's time to find out more => <a href='https://telegra.ph/O-nas-04-30-6'>about us</a>"
+    },
+    "settings_msg": {
+        "ru": "⚙️ Настройки",
+        "en": "⚙️ Settings"
+    },
+    "msg_account_doesnt_connected": {
+        "ru": "Мы не обнаружили профиль <a href='https://lk.poools.top/'>Poools.top</a> привязанный к этому telegram аккаунту.",
+        "en": "We have not found the profile <a href='https://lk.poools.top/'>Poools.top</a> linked to this telegram account."
+    },
+    "msg_account_connected": {
+        "ru": "Мы обнаружили ваш аккаунт в Poools.Top \uD83D\uDC40\nВаши данные:\n\uD83D\uDCCD telegram (@{})\n\uD83C\uDF10 Pooolstop ({})",
+        "en": "We have discovered your Pools.Top account \uD83D\uDC40\nYour data:\n\uD83D\uDCCD telegram (@{})\n\uD83C\uDF10 Pooolstop ({})"
+    },
+    "user_info_main": {
+        "ru": "\uD83D\uDC64 - @{}\nEmail: {}\n\n",
+        "en": "\uD83D\uDC64 - @{}\nEmail: {}\n\n"
+    },
+    "user_info_balance": {
+        "ru": "Баланс:\n{} BTC\n{} USDT",
+        "en": "Balance:\n{} BTC\n{} USDT"
+    },
+    "user_info_statistics": {
+        "ru": "Workers:\n✅ {}\n⚠️ {}\n❌ {}\nHashRate: {} TH",
+        "en": "Workers:\n✅ {}\n⚠️ {}\n❌ {}\nHashRate: {} TH"
+    },
+    "user_info_hashrate": {
+        "ru": "Hashrate: {}\nMonthly income: {} BTC",
+        "en": "Hashrate: {}\nMonthly income: {} BTC"
+    },
+    "who_we_are": {
+        "ru": "Pooolstop - это команда профессиональных майнеров, которая специализируется на подключении оборудования к самым доходным пулам криптовалют. Мы предлагаем своим клиентам высококачественные услуги по настройке оборудования, оптимизации майнингового процесса и выбору наиболее эффективных пулов для майнинга.\n\nПодключив своё оборудование к нашему сервису вы получаете VIP условия у всех пулов-партнеров. Поскольку мы крупные игроки, нам предоставляются лучшие условия, которыми мы делимся с вами.\n\nПреимущества работы с \"Pooolstop\":\n\nОптимизация доходности: Мы подбираем оптимальные пулы для майнинга, учитывая текущую сложность сети, курс криптовалюты и другие факторы, чтобы максимизировать вашу прибыль.\nБезопасность и надежность: Мы работаем только с проверенными и надежными пулами, чтобы обеспечить стабильную работу вашего оборудования и безопасность ваших средств.\nПрофессиональная поддержка: Наша команда готова оказать помощь в любое время — от начальной настройки оборудования до решения любых технических проблем.\nПерсональный подход: Мы учитываем особенности каждого клиента и его оборудования, чтобы предложить наиболее подходящие решения для достижения его целей в майнинге.\n\n Нашими клиентами являются как индивидуальные майнеры, так и крупные майнинговые фермы. Мы стремимся к долгосрочному и взаимовыгодному сотрудничеству с каждым нашим клиентом и гарантируем качественное обслуживание и поддержку на всех этапах сотрудничества.",
+        "en": "Pooolstop"
+    },
+    "main_info_linked": {
+        "ru": "<a href='https://start.poools.top/'>Poools.top</a>\n\n\uD83D\uDD14 Настраивайте уведомления о самых прибыльных пулах\n\n\uD83D\uDEE0 Подключайте оборудование\n\n\uD83D\uDC64 Отслеживайте свою доходность в личном кабинете\n",
+        "en": "<a href='https://start.poools.top/'>Poools.top</a>\n\n\uD83D\uDD14 Set up notifications about the most profitable pools\n\n\uD83D\uDEE0 Connect the miners\n\n\uD83D\uDC64 Track your profitability in your personal account\n"
+    },
+    "main_info_not_linked": {
+        "ru": "\uD83D\uDCB0 Узнавайте о самых прибыльных пулах\n⚙️ Оптимизируйте процесс майнинга\n\uD83D\uDCC8 Подключайте оборудование и начните зарабатывать больше!\n\nАвторизуйтесь в нашем боте, если у вас уже есть аккаунт!\n\n\uD83D\uDC40 Если <b>Вы ещё не в нашей команде, то самое время узнать побольше</b> => <a href='https://telegra.ph/O-nas-04-30-6'>о нас</a>",
+        "en": "\uD83D\uDD14 Get notifications about the most profitable pools\n\uD83D\uDCC8 Keep an eye on the income\n\uD83D\uDC64 Manage your account without leaving Telegram\nSubscribe to <a href='https://t.me/L0P2Yh2zcSRhYTEy'>our channel</a> and join <a href='https://t.me/L0P2Yh2zcSRhYTEy'>our chat</a>."
+    },
+    "connect_to_us": {
+        "ru": "Присоединяйся к нашему сервису и получи доступ к самым высокодоходным пулам. Мы предоставляем надежные и проверенные пулы, которые помогут тебе максимизировать доход от майнинга. Зарегистрируйся сейчас и начни зарабатывать больше с нами! \uD83D\uDE80\uD83D\uDD12",
+        "en": "Pooolstop"
+    },
+    "contacts_msg": {
+        "ru": "\uD83C\uDD7F️ Контакты и общая информация:\n<a href='https://telegra.ph/O-nas-04-30-6'>О нас</a>",
+        "en": "\uD83C\uDD7F️ Contacts and general information:\n<a href='https://telegra.ph/O-nas-04-30-6'>О нас</a>"
+    },
+    "not_linked_profile": {
+        "ru": "Уважаемый пользователь!\n\nДля доступа к личному кабинету необходимо пройти регистрацию и привязать аккаунт к телеграм-боту.\uD83E\uDD1D\nБез этого вы не сможете войти в свой аккаунт.\uD83E\uDD72\n\n\uD83D\uDE0E Если у Вас есть аккаунт, просто синхронизируйте его с нашим ботом\n\uD83E\uDD73 Если вы ещё не в нашей команде, то просто пройдите регистрацию и начните зарабатывать больше!\n\nС уважением,команда Poools.Top!",
+        "en": "Dear user!\n\nTo access your personal account, you must register. And link the account to the telegram bot.\uD83E\uDD1D\nWithout this, you will not be able to log in to your account.\uD83E\uDD72\n\n\uD83D\uDE0E If you have an account, just sync it with our bot\n\uD83E\uDD73 If you are not in our team yet, then just register and start earning more!\n\nSincerely, Poools.Top team!"
+    },
+    "ratings_msg_head": {
+        "ru": "Рейтинг доходности майнинг пулов за {} дней:\n\n",
+        "en": "Mining pool profitability rating for the period of {} days:\n\n"
+    },
+    "ratings_pool_row": {
+        "ru": "{} - <a href='{}'>{}</a>\t | <b>Payrate, BTC:</b> {:.10f}\n\n",
+        "en": "{} - <a href='{}'>{}</a>\t | <b>Payrate, BTC:</b> {:.10f}\n\n"
+    },
+    "ratings_msg_footer": {
+        "ru": "Вы можете подписаться на регулярные уведомления о текущем рейтинге пулов",
+        "en": "You can subscribe to regular notifications about the current pool rating"
+    },
+    "do_you_want_sub": {
+        "ru": "Хотите быть в курсе какие пулы приносят максимальный доход? \uD83D\uDCB0\uD83D\uDCB8\n\nВыберите как часто вы хотите получать уведомления! \uD83D\uDCE8",
+        "en": "Do you want to know which pools bring the maximum income? \uD83D\uDCB0\uD83D\uDCB8\n\nChoose how often you want to receive notifications!"
+    },
+    "successful_sub": {
+        "ru": "Вы успешно подписались на рассылку рейтинга.\nОтключить уведомления всегда можно в настройках бота.",
+        "en": "You have successfully subscribed to the rating newsletter.\nYou can always disable notifications in the bot settings."
+    },
+    "successful_unsub": {
+        "ru": "Вы успешно отписались от рассылки рейтинга.\nВключить уведомления всегда можно в настройках бота.",
+        "en": "You have successfully unsubscribed from the rating mailing list.\nYou can always enable notifications in the bot settings."
+    },
+    "ratings_notification_head": {
+        "ru": "⏰ Уведомляем вас об актуальном рейтинге доходности!\n\n",
+        "en": "⏰ We are notifying you about the current profitability rating!\n\n"
+    },
+    "main_info_lang_settings": {
+        "ru": "Выберите язык бота.",
+        "en": "Choose a language."
+    },
+    "back_to_menu": {
+        "ru": "Возвращение к меню...",
+        "en": "Opening the menu..."
+    },
+    "login_result_negative": {
+        "ru": "Извините, сейчас войти в ваш аккаунт не получается... \uD83E\uDD12",
+        "en": "Sorry, can't login to your account right now... \uD83E\uDD12"
+    },
+    "login_result_success": {
+        "ru": "Вы успешно связали ваши аккаунты! \uD83C\uDF89",
+        "en": "You have successfully linked your accounts! \uD83C\uDF89"
+    },
+    "login_result_error": {
+        "ru": "❗️ Неверный логин или пароль!",
+        "en": "❗️ Wrong login or password!"
+    },
+    "successful_logout": {
+        "ru": "Вы успешно отвязали свой аккаунт poools.top!",
+        "en": "You have successfully unlinked your poools.top account!"
+    },
+    "no_logout": {
+        "ru": "Вы ещё не привязывали свой аккаунт poools.top к telegram!\n\n\uD83D\uDE0E Если у Вас есть аккаунт, просто синхронизируйте его с нашим ботом\n\uD83E\uDD73 Если вы ещё не в нашей команде, то просто пройдите регистрацию и начните зарабатывать больше!",
+        "en": "You haven't linked your poools.top account to telegram yet!\n\n\uD83D\uDE0E If you have an account, just sync it with our bot\n\uD83E\uDD73 If you are not in our team yet, then just register and start earning more!"
+    },
+    "service_msg": {
+        "ru": "У вас остались вопросы?\n\nСвяжитесь с нами и мы обязательно поможем!",
+        "en": "Do you have any more questions?\n\nContact us and we will definitely help!"
+    },
+    "learn_more": {
+        "ru": "\uD83D\uDCCD Poools.top - это команда профессиональных майнеров, которая специализируется на подключении оборудования к самым доходным пулам криптовалют.\n\n\uD83D\uDC51 Подключив своё оборудование к нашему сервису вы получаете VIP условия у всех пулов-партнеров.\n\n ✅Вам будут доступны:\n\uD83D\uDCB8 Оптимизация доходности: Мы подбираем оптимальные пулы для майнинга, учитывая текущую сложность сети, курс криптовалюты и другие факторы, чтобы максимизировать вашу прибыль.\n\uD83D\uDD12 Безопасность и надежность: Мы работаем только с проверенными и надежными пулами, чтобы обеспечить стабильную работу вашего оборудования и безопасность ваших средств.\n\uD83E\uDD1D Профессиональная поддержка: Наша команда готова оказать помощь в любое время — от начальной настройки оборудования до решения любых технических проблем.\n\n\uD83D\uDE80 Присоединяйтесь к Poools.top и начните зарабатывать больше!\n\nЕще больше о нас: <a href='https://start.poools.top'>Poools.top</a>\nСледить за рейтингом стало еще удобнее  с настройкой уведомлений!\n\n\uD83D\uDD25 Специально для тех, кто хочет зарабатывать еще больше прямо сейчас: <a href='https://lk.poools.top'>Регистрация в личном кабинете</a>",
+        "en": "\uD83D\uDCCD Poools.top - это команда профессиональных майнеров, которая специализируется на подключении оборудования к самым доходным пулам криптовалют.\n\n\uD83D\uDC51 Подключив своё оборудование к нашему сервису вы получаете VIP условия у всех пулов-партнеров.\n\n ✅Вам будут доступны:\n\uD83D\uDCB8 Оптимизация доходности: Мы подбираем оптимальные пулы для майнинга, учитывая текущую сложность сети, курс криптовалюты и другие факторы, чтобы максимизировать вашу прибыль.\n\uD83D\uDD12 Безопасность и надежность: Мы работаем только с проверенными и надежными пулами, чтобы обеспечить стабильную работу вашего оборудования и безопасность ваших средств.\n\uD83E\uDD1D Профессиональная поддержка: Наша команда готова оказать помощь в любое время — от начальной настройки оборудования до решения любых технических проблем.\n\n\uD83D\uDE80 Присоединяйтесь к Poools.top и начните зарабатывать больше!\n\nЕще больше о нас: <a href='https://start.poools.top'>Poools.top</a>\nСледить за рейтингом стало еще удобнее  с настройкой уведомлений!\n\n\uD83D\uDD25 Специально для тех, кто хочет зарабатывать еще больше прямо сейчас: <a href='https://lk.poools.top'>Регистрация в личном кабинете</a>"
+    },
+    "you_can_register": {
+        "ru": "\uD83D\uDD25 Пройти регистрацию в личном кабинете и зарабатывать больше можно уже сейчас!",
+        "en": "\uD83D\uDD25 You can register in your personal account and earn more now!"
+    },
+    "how_to_earn_more": {
+        "ru": "Мы точно знаем, что:\n\n\uD83D\uDCA3 МАЙНИНГ С МАКСИМАЛЬНЫМ ДОХОДОМ ВОЗМОЖЕН \nЗа 7 лет в майнинге изучили все  “подводные” камни. Создали сервис  и гарантируем, что доходность с нами будет еще выше.\n\n\uD83D\uDCB5 СЛОЖНО СРАВНИВАТЬ РЕАЛЬНУЮ ДОХОДНОСТЬ НА РАЗЛИЧНЫХ ПУЛАХ\nМы создали независимый рейтинг доходности пулов, которому доверяем сами. Протестировать рейтинг можно по кнопке внизу.\n\n\uD83C\uDFC3 ПОИСК ПОДХОДЯЩЕГО ТОПОВОГО ПУЛА ЗАНИМАЕТ МНОГО ВРЕМЕНИ\nМы автоматически переключаем на ТОПовый пул без потери времени, так как время для нас-деньги.\n\n\uD83D\uDCB5\uD83D\uDCB5\uD83D\uDCB5 <a href='https://t.me/pooolstoptestbot/pooolstop_twa'>Получить VIP-условия от ТОПовых пулов прямо сейчас</a>\nКак подключить свой ASIC? (ссылка на инструкцию)\n<a href='https://youtu.be/dOdlaVBQb14?si=eqBG_QIudoacoZau'>Как работает сервис?</a>\n",
+        "en": ""
+    }
+}
