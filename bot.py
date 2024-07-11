@@ -25,7 +25,7 @@ async def main():
     scheduler.add_job(send_rating_notification, trigger='interval', minutes=30, kwargs={'bot': bot, 'dispatcher': dp})
     scheduler.start()
 
-    asyncio.create_task(set_users_states(dp))
+    await asyncio.create_task(set_users_states(dp))
 
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 

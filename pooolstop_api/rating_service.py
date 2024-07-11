@@ -32,7 +32,7 @@ def parse_pool(pool, index):
 
 def get_ratings_for_table(period: int, u: str = "th"):
     querystring = {"p": str(period), "u": u}
-    response_json = requests.request("GET", url, headers=headers, params=querystring).json()
+    response_json = requests.request("GET", url, headers=headers, params=querystring, verify=False).json()
     data = []
     index = 1
     for pool in response_json:

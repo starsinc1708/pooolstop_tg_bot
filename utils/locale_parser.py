@@ -11,9 +11,15 @@ with open('text_data/btn_text.json', encoding='utf-8') as json_file:
 
 def get_message_text(locale: str, tag: str) -> str:
     """Получить текст сообщения по локали и тегу."""
-    return msg_data[tag][locale]
+    if locale == "ru" or locale == "en":
+        return msg_data[tag][locale]
+    else:
+        return msg_data[tag]["en"]
 
 
 def get_btn_text(locale: str, tag: str) -> str:
     """Получить текст кнопки по локали и тегу."""
-    return btn_data[tag][locale]
+    if locale == "ru" or locale == "en":
+        return btn_data[tag][locale]
+    else:
+        return btn_data[tag]["en"]
