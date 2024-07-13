@@ -60,8 +60,8 @@
         "en": "Mining pool profitability rating for the period of {} days:\n\n"
     },
     "ratings_pool_row": {
-        "ru": "{} - <a href='{}'>{}</a>\t | <b>Payrate, BTC:</b> {:.10f}\n\n",
-        "en": "{} - <a href='{}'>{}</a>\t | <b>Payrate, BTC:</b> {:.10f}\n\n"
+        "ru": "{:<5} - <a href='{}'>{:<15}</a> | <b>Rate:</b> {:.2f}\t| {}%\n",
+        "en": "{} - <a href='{}'>{}</a>\t | <b>Rate:</b> {:.2f}\t| {}%\n"
     },
     "ratings_msg_footer": {
         "ru": "Вы можете подписаться на регулярные уведомления о текущем рейтинге пулов",

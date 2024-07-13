@@ -2,6 +2,8 @@ import logging
 from datetime import datetime, timedelta
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.base import StorageKey
+from sympy.physics.units import percent
+
 from handlers.states import Greeting
 from keyboards.Inline_keyboards import ratings_keyboard, back_keyboard, to_menu_keyboard, registration_proposal_keyboard
 import database as db
@@ -20,7 +22,7 @@ def configure_rating_message(locale: str, period: int) -> str:
     pools = rs.get_ratings_for_table(period)
     for pool in pools:
         msg += get_message_text(locale, "ratings_pool_row").format(pool['rating'], pool['pool_url'], pool['pool'],
-                                                                   pool['payrate'])
+                                                                   pool['payrate'], pool['percent'])
 
     msg += get_message_text(locale, "ratings_msg_footer")
     return msg
@@ -32,7 +34,7 @@ def configure_rating_notification(locale: str, period: int) -> str:
     pools = rs.get_ratings_for_table(period)
     for pool in pools:
         msg += get_message_text(locale, "ratings_pool_row").format(pool['rating'], pool['pool_url'], pool['pool'],
-                                                                   pool['payrate'])
+                                                                   pool['payrate'], pool['percent'])
     return msg
 
 
