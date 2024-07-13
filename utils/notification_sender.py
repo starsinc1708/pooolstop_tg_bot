@@ -5,6 +5,7 @@ from aiogram.fsm.storage.base import StorageKey
 from sympy.physics.units import percent
 
 from handlers.states import Greeting
+from handlers.text_messages import watcher_link
 from keyboards.Inline_keyboards import ratings_keyboard, back_keyboard, to_menu_keyboard, registration_proposal_keyboard
 import database as db
 from utils.locale_parser import get_message_text
@@ -20,11 +21,41 @@ BOT_ID = os.getenv('BOT_ID')
 def configure_rating_message(locale: str, period: int) -> str:
     msg = get_message_text(locale, "ratings_msg_head").format(period)
     pools = rs.get_ratings_for_table(period)
+    header = "`Rating | Pool Name                | Payrate | Percent `\n"
+    separator = "`------ | ------------------------ | ------- | ------- `\n"
+    msg += header + separator
+
     for pool in pools:
-        msg += get_message_text(locale, "ratings_pool_row").format(pool['rating'], pool['pool_url'], pool['pool'],
-                                                                   pool['payrate'], pool['percent'])
+        rating = f"{pool['rating']:<6}"
+        name = f"{pool['pool']:<24}"
+        payrate = f"{pool['payrate']:<7.2f}"
+        percent = f"{pool['percent']:<6.2f}"
+        msg += f"`{rating} | {name} | {payrate} | {percent} %`\n"
 
     msg += get_message_text(locale, "ratings_msg_footer")
+    return msg
+
+
+def configure_rating_message_with_watcher(link: str, locale: str, period: int) -> str:
+    msg = get_message_text(locale, "ratings_msg_head").format(period)
+    pools = rs.get_ratings_for_table_with_watcher(link, period)
+    header = "`Rating | Pool Name                | Payrate | Percent `\n"
+    separator = "`------ | ------------------------ | ------- | ------- `\n"
+    msg += header + separator
+
+    # for pool in pools:
+    #     if pool['is_user']:
+    #         watcher = "*YOU*"
+    #         name = f"{watcher:<24}"
+    #     else:
+    #         name = f"{pool['pool']:<24}"
+    #
+    #     rating = f"{pool['rating']:<6}"
+    #     payrate = f"{pool['payrate']:<7.2f}"
+    #     percent = f"{pool['percent']:<6.2f}"
+    #     msg += f"`{rating} | {name} | {payrate} | {percent} %`\n"
+    #
+    # msg += get_message_text(locale, "ratings_msg_footer")
     return msg
 
 

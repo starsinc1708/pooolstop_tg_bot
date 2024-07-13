@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 url = os.getenv("RATING_SERVICE_BASE_URL")
+add_watcher_url = os.getenv("RATING_SERVICE_ADD_WATCHER")
 
 headers = {
     "Accept": "*/*",
@@ -20,24 +21,41 @@ headers = {
 
 
 def parse_pool(pool, index):
-    pool_data = {
-        'rating': int(index),
-        'pool': str(pool['pool_name']),
-        'pool_url': str(pool['pool_url']),
-        'payrate': float(pool['avr_pay_rate']),
-        'percent': float(pool['percent'])
-    }
+    if index > 1:
+        pool_data = {
+            'rating': int(index),
+            'pool': str(pool['pool_name']),
+            'pool_url': str(pool['pool_url']),
+            'payrate': float(pool['avr_pay_rate']),
+            'percent': float(pool['percent']) - 100.0
+        }
+    else:
+        pool_data = {
+            'rating': int(index),
+            'pool': str(pool['pool_name']),
+            'pool_url': str(pool['pool_url']),
+            'payrate': float(pool['avr_pay_rate']),
+            'percent': float(pool['percent'])
+        }
     return pool_data
 
 
 def get_ratings_for_table(period: int, u: str = "th"):
     querystring = {"period": str(period), "unit": u}
     response = requests.request("GET", url, headers=headers, params=querystring)
-    print(response.text)
     response_json = response.json()
     data = []
     index = 1
     for pool in response_json:
         data.append(parse_pool(pool, index))
         index = index + 1
+    return data
+
+
+def get_ratings_for_table_with_watcher(watcher_link: str, period: int, u: str = "th"):
+    querystring = {"period": str(period), "unit": u}
+    link = {"link": watcher_link}
+    response = requests.request("POST", add_watcher_url, json=link, headers=headers)
+    response_json = response.json()
+    data = []
     return data

@@ -60,11 +60,11 @@
         "en": "Mining pool profitability rating for the period of {} days:\n\n"
     },
     "ratings_pool_row": {
-        "ru": "{:<5} - <a href='{}'>{:<15}</a> | <b>Rate:</b> {:.2f}\t| {}%\n",
+        "ru": "{} - <a href='{}'>{}</a> | <b>Rate:</b> {:.2f}\t| {}%\n",
         "en": "{} - <a href='{}'>{}</a>\t | <b>Rate:</b> {:.2f}\t| {}%\n"
     },
     "ratings_msg_footer": {
-        "ru": "Вы можете подписаться на регулярные уведомления о текущем рейтинге пулов",
+        "ru": "Отправьте боту свой watcherLink и сможете увидеть свою позицию в рейтинге\nВы можете подписаться на регулярные уведомления о текущем рейтинге пулов",
         "en": "You can subscribe to regular notifications about the current pool rating"
     },
     "do_you_want_sub": {

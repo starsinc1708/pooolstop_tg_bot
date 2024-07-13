@@ -10,7 +10,7 @@ from keyboards.Inline_keyboards import (
 from utils.locale_parser import get_message_text
 import database as db
 from utils.logger import handle_update
-from utils.notification_sender import configure_rating_message, configure_rating_notification
+from utils.notification_sender import configure_rating_message
 
 router = Router()
 
@@ -114,7 +114,7 @@ async def send_ratings_page(callback: types.CallbackQuery):
 
     await callback.message.edit_text(
         text=ratings_msg,
-        parse_mode="HTML",
+        parse_mode="MARKDOWN",
         disable_web_page_preview=True,
     )
     await callback.message.edit_reply_markup(reply_markup=ratings_keyboard(db.get_user_locale(callback.from_user)))
@@ -173,7 +173,7 @@ async def send_after_subscribe(callback: types.CallbackQuery, state: FSMContext)
         )
 
     successful_sub_msg = get_message_text(db.get_user_locale(callback.from_user), "successful_sub")
-    ratings_msg = configure_rating_notification(db.get_user_locale(callback.from_user), 7)
+    ratings_msg = configure_rating_message(db.get_user_locale(callback.from_user), 7)
 
     await callback.message.edit_text(
         text=successful_sub_msg,

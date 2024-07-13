@@ -3,7 +3,7 @@ import logging
 import asyncio
 from aiogram import Bot, Dispatcher
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from handlers import callbacks, global_commands
+from handlers import callbacks, global_commands, text_messages
 from utils.notification_sender import send_rating_notification
 from utils.state_manager import set_users_states
 from dotenv import load_dotenv
@@ -22,6 +22,7 @@ async def main():
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
     dp.include_router(global_commands.router)
+    dp.include_router(text_messages.router)
     dp.include_router(callbacks.router)
 
     scheduler = AsyncIOScheduler(timezone="Europe/Moscow")
