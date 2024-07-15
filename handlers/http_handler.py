@@ -156,9 +156,9 @@ def setup_routes(app):
     app.router.add_post('/api/create/tgsync', sync_telegram_user)
     app.router.add_post('/api/delete/tgsync', delete_telegram_user)
     app.router.add_post('/api/tgsync', check_telegram_user_synced)
-    app.router.add_post('/api/send-message-to-one', send_custom_message)
-    app.router.add_post('/api/send-message-to-many', send_custom_message_bulk)
-    app.router.add_post('/api/send_ratings', send_ratings)
+    app.router.add_post('/api/message/send-to-one', send_custom_message)
+    app.router.add_post('/api/message/send-to-many', send_custom_message_bulk)
+    app.router.add_post('/api/message/send_ratings', send_ratings)
 
     return app.router
 
