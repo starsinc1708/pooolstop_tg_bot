@@ -4,6 +4,8 @@ from xml.sax import parse
 import requests
 from dotenv import load_dotenv
 
+from webapp_auth.auth_service_api import user_sync
+
 load_dotenv()
 
 url = os.getenv("RATING_SERVICE_BASE_URL")
@@ -40,6 +42,32 @@ def parse_pool(pool, index):
     return pool_data
 
 
+def parse_pool_with_watcher(pool, index, user_rate):
+    if pool['is_user']:
+        pool_data = {
+            'rating': int(index),
+            'pool': str(pool['pool_name']),
+            'pool_url': str(pool['pool_url']),
+            'payrate': float(pool['avr_pay_rate']),
+            'is_user': pool['is_user'],
+            'percent': 100.0
+        }
+    else:
+        diff = (float(pool['avr_pay_rate']) / user_rate * 100)  - 100
+        if 0.01 > diff > -0.01:
+            diff = 0.0
+
+        pool_data = {
+            'rating': int(index),
+            'pool': str(pool['pool_name']),
+            'pool_url': str(pool['pool_url']),
+            'payrate': float(pool['avr_pay_rate']),
+            'is_user': pool['is_user'],
+            'percent': diff
+        }
+    return pool_data
+
+
 def get_ratings_for_table(period: int, u: str = "th"):
     querystring = {"period": str(period), "unit": u}
     response = requests.request("GET", url, headers=headers, params=querystring)
@@ -52,10 +80,26 @@ def get_ratings_for_table(period: int, u: str = "th"):
     return data
 
 
+
+
+
 def get_ratings_for_table_with_watcher(watcher_link: str, period: int, u: str = "th"):
-    querystring = {"period": str(period), "unit": u}
     link = {"link": watcher_link}
     response = requests.request("POST", add_watcher_url, json=link, headers=headers)
     response_json = response.json()
+    watcher_id = response_json['watcher_id']
+    querystring = {"period": str(period), "unit": u, "watcher_id": watcher_id}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    response_json = response.json()
     data = []
+    index = 1
+    user_rate = 0
+    for pool in response_json:
+        if pool['is_user']:
+            user_rate = float(pool['avr_pay_rate'])
+
+
+    for pool in response_json:
+        data.append(parse_pool_with_watcher(pool, index, user_rate))
+        index = index + 1
     return data

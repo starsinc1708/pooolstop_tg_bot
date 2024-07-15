@@ -59,13 +59,21 @@
         "ru": "Рейтинг доходности майнинг пулов за {} дней:\n\n",
         "en": "Mining pool profitability rating for the period of {} days:\n\n"
     },
+    "ratings_msg_head_watcher": {
+        "ru": "Рейтинг доходности с вашим watcherLink:\n\n",
+        "en": "Profitability rating with your watcher:\n\n"
+    },
     "ratings_pool_row": {
         "ru": "{} - <a href='{}'>{}</a> | <b>Rate:</b> {:.2f}\t| {}%\n",
         "en": "{} - <a href='{}'>{}</a>\t | <b>Rate:</b> {:.2f}\t| {}%\n"
     },
     "ratings_msg_footer": {
-        "ru": "Отправьте боту свой watcherLink и сможете увидеть свою позицию в рейтинге\nВы можете подписаться на регулярные уведомления о текущем рейтинге пулов",
-        "en": "You can subscribe to regular notifications about the current pool rating"
+        "ru": "Отправьте боту свой watcherLink и сможете увидеть свою позицию в рейтинге.\nТакже вы можете подписаться на регулярные уведомления о текущем рейтинге пулов.\n\n",
+        "en": "Send your patchlink to the bot and you will be able to see your position in the rating.\nYou can subscribe to regular notifications about the current pool rating.\n\n"
+    },
+    "ratings_msg_footer_watcher": {
+        "ru": "\n",
+        "en": " \n"
     },
     "do_you_want_sub": {
         "ru": "Хотите быть в курсе какие пулы приносят максимальный доход? \uD83D\uDCB0\uD83D\uDCB8\n\nВыберите как часто вы хотите получать уведомления! \uD83D\uDCE8",

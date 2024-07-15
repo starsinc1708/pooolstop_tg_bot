@@ -15,10 +15,10 @@ from utils.notification_sender import configure_rating_message
 router = Router()
 
 
-async def edit_message_and_set_state(callback, state, message_text, reply_markup, new_state):
+async def edit_message_and_set_state(callback, state, message_text, reply_markup, new_state, parse_mode="HTML"):
     await callback.message.edit_text(
         text=message_text,
-        parse_mode="HTML",
+        parse_mode=parse_mode,
         disable_web_page_preview=True,
     )
     await callback.message.edit_reply_markup(reply_markup=reply_markup)
@@ -103,7 +103,8 @@ async def send_ratings(callback: types.CallbackQuery, state: FSMContext):
         callback, state,
         ratings_msg,
         ratings_keyboard(db.get_user_locale(callback.from_user)),
-        Greeting.rating_page
+        Greeting.rating_page,
+        parse_mode="MARKDOWN"
     )
 
 

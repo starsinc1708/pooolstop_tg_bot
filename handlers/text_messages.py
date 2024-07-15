@@ -23,7 +23,7 @@ router = Router()
 async def edit_message_and_set_state(message: Message, state, message_text, reply_markup, new_state):
     await message.answer(
         text=message_text,
-        parse_mode="HTML",
+        parse_mode="MARKDOWN",
         disable_web_page_preview=True,
         reply_markup=reply_markup
     )
@@ -34,8 +34,8 @@ async def edit_message_and_set_state(message: Message, state, message_text, repl
 
 @router.message(F.text, StateFilter(Greeting.rating_page))
 async def watcher_link(message: Message, state: FSMContext):
-    from utils.notification_sender import configure_rating_message_with_watcher
-    ratings_msg = configure_rating_message_with_watcher(message.text, db.get_user_locale(message.from_user), 7)
+    from utils.notification_sender import configure_rating_message
+    ratings_msg = configure_rating_message(db.get_user_locale(message.from_user), 7, watcher_link=message.text)
     await edit_message_and_set_state(
         message, state,
         ratings_msg,
