@@ -25,29 +25,31 @@ def format_pool_row(pool, with_user=False):
         name = f"[{pool['pool']}]({pool['pool_url']})"
         return f"{rating})  {name} - {payrate} | {percent}%\n"
 
-def configure_message_head_and_footer(locale, head_key, footer_key, period=None):
+def configure_message_head(locale, head_key, period=None):
     msg = get_message_text(locale, head_key)
     if period:
         msg = msg.format(period)
-    msg += get_message_text(locale, footer_key)
     return msg
+
+def configure_message_footer(locale, footer_key):
+    return get_message_text(locale, footer_key)
 
 def configure_rating_message(locale, period, watcher_link=None):
     head_key = "ratings_msg_head_watcher" if watcher_link else "ratings_msg_head"
     footer_key = "ratings_msg_footer_watcher" if watcher_link else "ratings_msg_footer"
-    msg = ""
+    msg = configure_message_head(locale, head_key, period)
     pools = rs.get_ratings_for_table_with_watcher(watcher_link, period) if watcher_link else rs.get_ratings_for_table(period)
     for pool in pools:
         msg += format_pool_row(pool, with_user=watcher_link is not None)
-    msg += configure_message_head_and_footer(locale, head_key, footer_key, period)
+    msg += configure_message_footer(locale, footer_key)
     return msg
 
 def configure_rating_notification(locale, period):
-    msg = ""
+    msg = configure_message_head(locale, "ratings_notification_head", period)
     pools = rs.get_ratings_for_table(period)
     for pool in pools:
         msg += get_message_text(locale, "ratings_pool_row").format(pool['rating'], pool['pool_url'], pool['pool'], pool['payrate'], pool['percent'])
-    msg += configure_message_head_and_footer(locale, "ratings_notification_head", "ratings_msg_footer", period)
+    msg += configure_message_footer(locale, "ratings_msg_footer")
     return msg
 
 def configure_registration_proposal(locale):
