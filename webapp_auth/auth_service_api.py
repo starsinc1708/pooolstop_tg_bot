@@ -191,4 +191,4 @@ cors.add(app.router.add_post('/api/delete/tgsync', delete_telegram_user))
 cors.add(app.router.add_post('/api/tgsync', check_telegram_user_synced))
 
 if __name__ == '__main__':
-    web.run_app(app, port=8003)
+    web.run_app(app, port=8084)

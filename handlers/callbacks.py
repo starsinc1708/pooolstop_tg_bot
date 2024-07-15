@@ -108,7 +108,7 @@ async def send_ratings(callback: types.CallbackQuery, state: FSMContext):
     )
 
 
-@router.callback_query(StateFilter(Greeting.rating_page), F.data.startswith("main_info_ratings_"))
+@router.callback_query(F.data.startswith("main_info_ratings_"))
 async def send_ratings_page(callback: types.CallbackQuery):
     period = int(callback.data.split("_")[3]) if len(callback.data.split("_")) == 4 else 7
     ratings_msg = configure_rating_message(db.get_user_locale(callback.from_user), period)

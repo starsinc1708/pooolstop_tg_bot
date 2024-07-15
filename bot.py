@@ -3,7 +3,9 @@ import logging
 import asyncio
 from aiogram import Bot, Dispatcher
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from handlers import callbacks, global_commands, text_messages
+from aiohttp import web
+import aiohttp_cors
+from handlers import callbacks, global_commands, text_messages, http_handler
 from utils.notification_sender import send_rating_notification
 from utils.state_manager import set_users_states
 from dotenv import load_dotenv
@@ -11,13 +13,13 @@ import urllib3
 
 urllib3.disable_warnings()
 
+load_dotenv()
 
-async def main():
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+
+# Telegram Bot Functions
+async def main_bot():
     logging.basicConfig(level=logging.INFO)
-
-    load_dotenv()
-    
-    BOT_TOKEN = os.getenv('BOT_TOKEN')
 
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
@@ -30,8 +32,23 @@ async def main():
     scheduler.start()
 
     await asyncio.create_task(set_users_states(dp))
-
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+
+# HTTP Server Setup
+async def main_server():
+    app = web.Application()
+    cors = aiohttp_cors.setup(app, defaults={"*": aiohttp_cors.ResourceOptions(allow_credentials=True, expose_headers="*", allow_headers="*")})
+    http_handler.setup_routes(app)  # Setup routes with the configured router
+
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, port=8084)
+    await site.start()
+
+# Main function to run both the bot and server
+async def main():
+    await asyncio.gather(main_bot(), main_server())
 
 if __name__ == "__main__":
     asyncio.run(main())
+
