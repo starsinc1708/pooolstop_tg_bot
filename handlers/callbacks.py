@@ -183,7 +183,7 @@ async def send_after_subscribe(callback: types.CallbackQuery, state: FSMContext)
     )
     await callback.message.answer(
         ratings_msg,
-        parse_mode="HTML",
+        parse_mode="MARKDOWN",
         disable_web_page_preview=True,
         reply_markup=ratings_keyboard(db.get_user_locale(callback.from_user))
     )
