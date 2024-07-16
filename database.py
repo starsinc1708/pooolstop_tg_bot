@@ -3,7 +3,6 @@ from aiogram.types import Message, User, CallbackQuery, Chat
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
-from sqlalchemy.testing.suite.test_reflection import users
 
 load_dotenv()
     
