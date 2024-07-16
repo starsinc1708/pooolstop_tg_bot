@@ -1,10 +1,7 @@
 import os
-from xml.sax import parse
-
 import requests
 from dotenv import load_dotenv
 
-from webapp_auth.auth_service_api import user_sync
 
 load_dotenv()
 

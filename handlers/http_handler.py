@@ -122,10 +122,10 @@ async def configure_and_send_message(bot, dispatcher: Dispatcher, chat_id, messa
     keyboard = get_inline_keyboard(message_type, user['locale'])
 
     if message_type == 'rating_notify':
-        await db.set_user_state(user['user_id'], state=Greeting.rating_page.state)
+        db.set_user_state(user['user_id'], state=Greeting.rating_page.state)
     elif message_type == 'back':
-        await db.set_user_state(user['user_id'], state=Greeting.menu_page.state)
-    state = await db.get_user_state(user_id=user['user_id'])
+        db.set_user_state(user['user_id'], state=Greeting.menu_page.state)
+    state = db.get_user_state(user_id=user['user_id'])
 
     storage_key = StorageKey(user_id=user['user_id'], bot_id=int(bot.id), chat_id=chat_id)
     await dispatcher.storage.set_state(storage_key, state)
