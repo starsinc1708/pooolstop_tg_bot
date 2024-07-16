@@ -79,6 +79,10 @@
         "ru": "Выйти из аккаунта",
         "en": "Log out of your account"
     },
+    "btn_period_1": {
+        "ru": "1д",
+        "en": "1d"
+    },
     "btn_period_7": {
         "ru": "7д",
         "en": "7d"

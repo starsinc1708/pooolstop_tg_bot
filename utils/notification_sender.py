@@ -2,6 +2,8 @@ import logging
 from datetime import datetime, timedelta
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.base import StorageKey
+from aiogram.types import User
+
 from handlers.states import Greeting
 from keyboards.Inline_keyboards import registration_proposal_keyboard
 import database as db
@@ -34,11 +36,14 @@ def configure_message_head(locale, head_key, period=None):
 def configure_message_footer(locale, footer_key):
     return get_message_text(locale, footer_key)
 
-def configure_rating_message(locale, period, watcher_link=None):
+def configure_rating_message(user: User, locale, period, watcher_link=None):
     head_key = "ratings_msg_head_watcher" if watcher_link else "ratings_msg_head"
     footer_key = "ratings_msg_footer_watcher" if watcher_link else "ratings_msg_footer"
     msg = configure_message_head(locale, head_key, period)
-    pools = rs.get_ratings_for_table_with_watcher(watcher_link, period) if watcher_link else rs.get_ratings_for_table(period)
+    pools, watcher_id = rs.get_ratings_for_table_with_watcher(watcher_link, period) if watcher_link else rs.get_ratings_for_table(period)
+    if watcher_link and watcher_id != -1:
+        db.set_user_watcher_link(user.id, watcher_link, watcher_id)
+
     for pool in pools:
         msg += format_pool_row(pool, with_user=watcher_link is not None)
     msg += configure_message_footer(locale, footer_key)
@@ -46,7 +51,7 @@ def configure_rating_message(locale, period, watcher_link=None):
 
 def configure_rating_notification(locale, period):
     msg = configure_message_head(locale, "ratings_notification_head", period)
-    pools = rs.get_ratings_for_table(period)
+    pools, watcher_id = rs.get_ratings_for_table(period)
     for pool in pools:
         msg += get_message_text(locale, "ratings_pool_row").format(pool['rating'], pool['pool_url'], pool['pool'], pool['payrate'], pool['percent'])
     msg += configure_message_footer(locale, "ratings_msg_footer")
@@ -65,7 +70,7 @@ async def send_notifications(bot, dispatcher, notification_type, configure_msg_f
             notification = {
                 'user_id': item['user_id'],
                 'chat_id': item['chat']['id'],
-                'msg': configure_msg_func(user['locale'], period),
+                'msg': configure_msg_func(user['locale'], 7),
                 'locale': user['locale']
             }
             notifications.append(notification)

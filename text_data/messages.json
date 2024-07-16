@@ -60,8 +60,8 @@
         "en": "Mining pool profitability rating for the period of {} days:\n\n"
     },
     "ratings_msg_head_watcher": {
-        "ru": "Рейтинг доходности с вашим watcherLink:\n\n",
-        "en": "Profitability rating with your watcher:\n\n"
+        "ru": "Рейтинг доходности с вашим watcherLink за {} дней:\n\n",
+        "en": "Profitability rating with your watcherLink for {} days:\n\n"
     },
     "ratings_pool_row": {
         "ru": "{} - <a href='{}'>{}</a> | <b>Rate:</b> {:.2f}\t| {}%\n",
@@ -72,8 +72,8 @@
         "en": "Send your patchlink to the bot and you will be able to see your position in the rating.\nYou can subscribe to regular notifications about the current pool rating.\n\n"
     },
     "ratings_msg_footer_watcher": {
-        "ru": "\n",
-        "en": " \n"
+        "ru": "\nТакже вы можете подписаться на регулярные уведомления о текущем рейтинге пулов.\n\n",
+        "en": "\nYou can subscribe to regular notifications about the current pool rating.\n\n"
     },
     "do_you_want_sub": {
         "ru": "Хотите быть в курсе какие пулы приносят максимальный доход? \uD83D\uDCB0\uD83D\uDCB8\n\nВыберите как часто вы хотите получать уведомления! \uD83D\uDCE8",
@@ -124,8 +124,8 @@
         "en": "Do you have any more questions?\n\nContact us and we will definitely help!"
     },
     "learn_more": {
-        "ru": "\uD83D\uDCCD Poools.top - это команда профессиональных майнеров, которая специализируется на подключении оборудования к самым доходным пулам криптовалют.\n\n\uD83D\uDC51 Подключив своё оборудование к нашему сервису вы получаете VIP условия у всех пулов-партнеров.\n\n ✅Вам будут доступны:\n\uD83D\uDCB8 Оптимизация доходности: Мы подбираем оптимальные пулы для майнинга, учитывая текущую сложность сети, курс криптовалюты и другие факторы, чтобы максимизировать вашу прибыль.\n\uD83D\uDD12 Безопасность и надежность: Мы работаем только с проверенными и надежными пулами, чтобы обеспечить стабильную работу вашего оборудования и безопасность ваших средств.\n\uD83E\uDD1D Профессиональная поддержка: Наша команда готова оказать помощь в любое время — от начальной настройки оборудования до решения любых технических проблем.\n\n\uD83D\uDE80 Присоединяйтесь к Poools.top и начните зарабатывать больше!\n\nЕще больше о нас: <a href='https://start.poools.top'>Poools.top</a>\nСледить за рейтингом стало еще удобнее  с настройкой уведомлений!\n\n\uD83D\uDD25 Специально для тех, кто хочет зарабатывать еще больше прямо сейчас: <a href='https://lk.poools.top'>Регистрация в личном кабинете</a>",
-        "en": "\uD83D\uDCCD Poools.top - это команда профессиональных майнеров, которая специализируется на подключении оборудования к самым доходным пулам криптовалют.\n\n\uD83D\uDC51 Подключив своё оборудование к нашему сервису вы получаете VIP условия у всех пулов-партнеров.\n\n ✅Вам будут доступны:\n\uD83D\uDCB8 Оптимизация доходности: Мы подбираем оптимальные пулы для майнинга, учитывая текущую сложность сети, курс криптовалюты и другие факторы, чтобы максимизировать вашу прибыль.\n\uD83D\uDD12 Безопасность и надежность: Мы работаем только с проверенными и надежными пулами, чтобы обеспечить стабильную работу вашего оборудования и безопасность ваших средств.\n\uD83E\uDD1D Профессиональная поддержка: Наша команда готова оказать помощь в любое время — от начальной настройки оборудования до решения любых технических проблем.\n\n\uD83D\uDE80 Присоединяйтесь к Poools.top и начните зарабатывать больше!\n\nЕще больше о нас: <a href='https://start.poools.top'>Poools.top</a>\nСледить за рейтингом стало еще удобнее  с настройкой уведомлений!\n\n\uD83D\uDD25 Специально для тех, кто хочет зарабатывать еще больше прямо сейчас: <a href='https://lk.poools.top'>Регистрация в личном кабинете</a>"
+        "ru": "\uD83D\uDCCD Poools.top - это команда профессиональных майнеров, которая специализируется на подключении оборудования к самым доходным пулам криптовалют.\n\n\uD83D\uDC51 Подключив своё оборудование к нашему сервису вы получаете VIP условия у всех пулов-партнеров.\n\n ✅Вам будут доступны:\n\uD83D\uDCB8 Оптимизация доходности: Мы подбираем оптимальные пулы для майнинга, учитывая текущую сложность сети, курс криптовалюты и другие факторы, чтобы максимизировать вашу прибыль.\n\uD83D\uDD12 Безопасность и надежность: Мы работаем только с проверенными и надежными пулами, чтобы обеспечить стабильную работу вашего оборудования и безопасность ваших средств.\n\uD83E\uDD1D Профессиональная поддержка: Наша команда готова оказать помощь в любое время — от начальной настройки оборудования до решения любых технических проблем.\n\n\uD83D\uDE80 Присоединяйтесь к <a href='https://t.me/pooolstoptestbot/pooolstop_mini_app'>Poools.top</a> и начните зарабатывать больше!\n\nСледить за рейтингом стало еще удобнее  с настройкой уведомлений!\n\n\uD83D\uDD25 Специально для тех, кто хочет зарабатывать еще больше прямо сейчас: <a href='https://t.me/pooolstoptestbot/pooolstop_mini_app'>Регистрация в личном кабинете</a>",
+        "en": "\uD83D\uDCCD Poools.top is a team of professional miners that specializes in connecting equipment to the most profitable pools of cryptocurrencies.\n\nBy connecting your equipment to our service, you receive VIP conditions from all partner pools.\n\n ✅You will have access to:\n\uD83D\uDCB8 Profitability optimization: We select the optimal pools for mining, taking into account the current complexity of the network, the cryptocurrency exchange rate and other factors to maximize your profit.\n\uD83D\uDD12 Safety and Reliability: We work only with proven and reliable pools to ensure the stable operation of your equipment and the safety of your funds.\nProfessional support: Our team is ready to provide assistance at any time — from the initial setup of the equipment to solving any technical problems.\n\n\uD83D\uDE80 Join <a href='https://t.me/pooolstoptestbot/pooolstop_mini_app'>Poools.top</a>  and start earning more!!\n\nMonitoring the rating has become even more convenient with the notification settings!\n\n\uD83D\uDD25  Especially for those who want to earn even more right now: <a href='https://t.me/pooolstoptestbot/pooolstop_mini_app'>Register your personal account</a>"
     },
     "you_can_register": {
         "ru": "\uD83D\uDD25 Пройти регистрацию в личном кабинете и зарабатывать больше можно уже сейчас!",

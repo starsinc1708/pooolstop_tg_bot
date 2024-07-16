@@ -3,7 +3,7 @@ from aiogram.types import Message, User, CallbackQuery, Chat
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
-
+from sqlalchemy.testing.suite.test_reflection import users
 
 load_dotenv()
     
@@ -19,6 +19,7 @@ notifications = db['notifications']
 user_login_info = db['login_info']
 workers_info = db['workers_info']
 user_from_web_app = db['user_web_app']
+user_watcher_link = db['user_watcher_link']
 
 
 def _update_or_insert(collection, query, data):
@@ -156,3 +157,21 @@ def add_command_log(message: Message):
         'command': message.text
     }
     command_logs.insert_one(command_log)
+
+
+def get_user_watcher_link(user: User):
+    wl = user_watcher_link.find_one({'user_id': user.id})
+    return wl['watcher_link'] if wl else None
+
+def set_user_watcher_link(user_id: int, link: str, watcher_id: int):
+    data = {
+        "user_id": user_id,
+        "watcher_link": link,
+        "watcher_id": watcher_id
+    }
+    _update_or_insert(user_watcher_link, {'user_id': user_id}, data)
+
+
+def get_watcher_id(watcher_link):
+    w_id = user_watcher_link.find_one({'watcher_link': watcher_link})
+    return w_id['watcher_id'] if w_id else None

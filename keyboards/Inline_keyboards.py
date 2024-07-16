@@ -208,16 +208,20 @@ def notifications_keyboard(locale: str) -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     kb.row(
         types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_period_1'),
+            callback_data="subscribe_ratings_notify_period_1"
+        ),
+        types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_period_7'),
-            callback_data="subscribe_ratings_7"
+            callback_data="subscribe_ratings_notify_period_7"
         ),
         types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_period_30'),
-            callback_data="subscribe_ratings_30"
+            callback_data="subscribe_ratings_notify_period_30"
         ),
         types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_period_60'),
-            callback_data="subscribe_ratings_60"
+            callback_data="subscribe_ratings_notify_period_60"
         ),
     )
     kb.row(

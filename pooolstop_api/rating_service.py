@@ -1,7 +1,7 @@
 import os
 import requests
 from dotenv import load_dotenv
-
+import database as db
 
 load_dotenv()
 
@@ -26,6 +26,7 @@ def parse_pool(pool, index):
             'pool': str(pool['pool_name']),
             'pool_url': str(pool['pool_url']),
             'payrate': float(pool['avr_pay_rate']),
+            'is_user': pool['is_user'],
             'percent': float(pool['percent']) - 100.0
         }
     else:
@@ -34,6 +35,7 @@ def parse_pool(pool, index):
             'pool': str(pool['pool_name']),
             'pool_url': str(pool['pool_url']),
             'payrate': float(pool['avr_pay_rate']),
+            'is_user': pool['is_user'],
             'percent': float(pool['percent'])
         }
     return pool_data
@@ -74,17 +76,20 @@ def get_ratings_for_table(period: int, u: str = "th"):
     for pool in response_json:
         data.append(parse_pool(pool, index))
         index = index + 1
-    return data
+    return data, -1
 
 
 
 
 
 def get_ratings_for_table_with_watcher(watcher_link: str, period: int, u: str = "th"):
-    link = {"link": watcher_link}
-    response = requests.request("POST", add_watcher_url, json=link, headers=headers)
-    response_json = response.json()
-    watcher_id = response_json['watcher_id']
+    watcher_id = db.get_watcher_id(watcher_link)
+    if not watcher_id:
+        link = {"link": watcher_link}
+        response = requests.request("POST", add_watcher_url, json=link, headers=headers)
+        response_json = response.json()
+        watcher_id = response_json['watcher_id']
+
     querystring = {"period": str(period), "unit": u, "watcher_id": watcher_id}
     response = requests.request("GET", url, headers=headers, params=querystring)
     response_json = response.json()
@@ -95,8 +100,12 @@ def get_ratings_for_table_with_watcher(watcher_link: str, period: int, u: str = 
         if pool['is_user']:
             user_rate = float(pool['avr_pay_rate'])
 
-
-    for pool in response_json:
-        data.append(parse_pool_with_watcher(pool, index, user_rate))
-        index = index + 1
-    return data
+    if user_rate == 0:
+        for pool in response_json:
+            data.append(parse_pool(pool, index))
+            index = index + 1
+    else:
+        for pool in response_json:
+            data.append(parse_pool_with_watcher(pool, index, user_rate))
+            index = index + 1
+    return data, watcher_id if watcher_id else -1

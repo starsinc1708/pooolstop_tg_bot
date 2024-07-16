@@ -27,9 +27,9 @@ async def main_bot():
     dp.include_router(text_messages.router)
     dp.include_router(callbacks.router)
 
-    scheduler = AsyncIOScheduler(timezone="Europe/Moscow")
-    scheduler.add_job(send_rating_notification, trigger='interval', minutes=30, kwargs={'bot': bot, 'dispatcher': dp})
-    scheduler.start()
+    #scheduler = AsyncIOScheduler(timezone="Europe/Moscow")
+    #scheduler.add_job(send_rating_notification, trigger='interval', minutes=1, kwargs={'bot': bot, 'dispatcher': dp})
+    #scheduler.start()
 
     await asyncio.create_task(set_users_states(dp))
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
