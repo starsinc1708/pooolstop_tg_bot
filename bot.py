@@ -17,7 +17,7 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
-# Telegram Bot Functions
+
 async def main_bot():
     logging.basicConfig(level=logging.INFO)
 
@@ -34,18 +34,18 @@ async def main_bot():
     await asyncio.create_task(set_users_states(dp))
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 
-# HTTP Server Setup
+
 async def main_server():
     app = web.Application()
     cors = aiohttp_cors.setup(app, defaults={"*": aiohttp_cors.ResourceOptions(allow_credentials=True, expose_headers="*", allow_headers="*")})
-    http_handler.setup_routes(app)  # Setup routes with the configured router
+    http_handler.setup_routes(app)
 
     runner = web.AppRunner(app)
     await runner.setup()
     site = web.TCPSite(runner, port=8084)
     await site.start()
 
-# Main function to run both the bot and server
+
 async def main():
     await asyncio.gather(main_bot(), main_server())
 

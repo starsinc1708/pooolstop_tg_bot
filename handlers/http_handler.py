@@ -19,7 +19,7 @@ BOT_TOKEN = os.getenv('BOT_TOKEN')
 async def sync_telegram_user(request):
     try:
         user_info = await request.json()
-        await asyncio.to_thread(user_sync_from_web_app, user_info)
+        await user_sync_from_web_app(user_info)
         response = {"code": 200, "message": "", "status": "success", "data": ""}
         return web.json_response(response, status=200)
     except Exception as e:
@@ -30,7 +30,7 @@ async def sync_telegram_user(request):
 async def delete_telegram_user(request):
     try:
         user_info = await request.json()
-        await asyncio.to_thread(desync_from_web_app, user_info)
+        await desync_from_web_app(user_info)
         response = {"code": 200, "message": "", "status": "success", "data": user_info.get('tg_id')}
         return web.json_response(response, status=200)
     except Exception as e:
@@ -41,7 +41,7 @@ async def delete_telegram_user(request):
 async def check_telegram_user_synced(request):
     try:
         user_info = await request.json()
-        data = await asyncio.to_thread(get_user_web_app, user_info)
+        data = await get_user_web_app(user_info)
         if data:
             response = {"code": 200, "message": "", "status": "success", "data": data}
             return web.json_response(response, status=200)
@@ -118,14 +118,14 @@ async def send_custom_message_bulk(request):
 
 
 async def configure_and_send_message(bot, dispatcher: Dispatcher, chat_id, message_text, message_type):
-    user = get_user_by_chat_id(chat_id)
+    user = await get_user_by_chat_id(chat_id)
     keyboard = get_inline_keyboard(message_type, user['locale'])
 
     if message_type == 'rating_notify':
-        db.set_user_state(user['user_id'], state=Greeting.rating_page.state)
+        await db.set_user_state(user['user_id'], state=Greeting.rating_page.state)
     elif message_type == 'back':
-        db.set_user_state(user['user_id'], state=Greeting.menu_page.state)
-    state = db.get_user_state(user_id=user['user_id'])
+        await db.set_user_state(user['user_id'], state=Greeting.menu_page.state)
+    state = await db.get_user_state(user_id=user['user_id'])
 
     storage_key = StorageKey(user_id=user['user_id'], bot_id=int(bot.id), chat_id=chat_id)
     await dispatcher.storage.set_state(storage_key, state)
@@ -161,4 +161,3 @@ def setup_routes(app):
     app.router.add_post('/api/message/send_ratings', send_ratings)
 
     return app.router
-
