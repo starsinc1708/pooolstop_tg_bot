@@ -172,7 +172,11 @@ async def send_ratings(request):
                 msg += configure_message_footer(locale, footer_key)
 
             bot = Bot(token=BOT_TOKEN)
-            await bot.send_message(chat_id=chat_id, text=msg, parse_mode="MARKDOWN", reply_markup=ratings_keyboard(locale))
+            await bot.send_message(chat_id=chat_id,
+                                   text=msg,
+                                   parse_mode="MARKDOWN",
+                                   reply_markup=ratings_keyboard(locale),
+                                   disable_web_page_preview=True)
             response = {"code": 200, "message": "Ratings sent successfully", "status": "success"}
             return web.json_response(response, status=200)
         else:
