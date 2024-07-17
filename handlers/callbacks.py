@@ -98,7 +98,7 @@ async def send_after_logout(callback: types.CallbackQuery, state: FSMContext):
 
 @router.callback_query(F.data == "main_info_ratings")
 async def send_ratings(callback: types.CallbackQuery, state: FSMContext):
-    ratings_msg = configure_rating_message(callback.from_user, db.get_user_locale(callback.from_user), 7, db.get_user_watcher_link(callback.from_user))
+    ratings_msg = configure_rating_message(callback.from_user.id, db.get_user_locale(callback.from_user), 7, db.get_user_watcher_link(callback.from_user))
     await edit_message_and_set_state(
         callback, state,
         ratings_msg,
@@ -111,7 +111,7 @@ async def send_ratings(callback: types.CallbackQuery, state: FSMContext):
 @router.callback_query(F.data.startswith("main_info_ratings_"))
 async def send_ratings_page(callback: types.CallbackQuery):
     period = int(callback.data.split("_")[3]) if len(callback.data.split("_")) == 4 else 7
-    ratings_msg = configure_rating_message(callback.from_user, db.get_user_locale(callback.from_user), period, db.get_user_watcher_link(callback.from_user))
+    ratings_msg = configure_rating_message(callback.from_user.id, db.get_user_locale(callback.from_user), period, db.get_user_watcher_link(callback.from_user))
 
     await callback.message.edit_text(
         text=ratings_msg,
@@ -174,7 +174,7 @@ async def send_after_subscribe(callback: types.CallbackQuery, state: FSMContext)
         )
 
     successful_sub_msg = get_message_text(db.get_user_locale(callback.from_user), "successful_sub")
-    ratings_msg = configure_rating_message(callback.from_user, db.get_user_locale(callback.from_user), 7, db.get_user_watcher_link(callback.from_user))
+    ratings_msg = configure_rating_message(callback.from_user.id, db.get_user_locale(callback.from_user), 7, db.get_user_watcher_link(callback.from_user))
 
     await callback.message.edit_text(
         text=successful_sub_msg,

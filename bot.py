@@ -37,7 +37,7 @@ async def main_bot():
 
 async def main_server():
     app = web.Application()
-    cors = aiohttp_cors.setup(app, defaults={"*": aiohttp_cors.ResourceOptions(allow_credentials=True, expose_headers="*", allow_headers="*")})
+    aiohttp_cors.setup(app, defaults={"*": aiohttp_cors.ResourceOptions(allow_credentials=True, expose_headers="*", allow_headers="*")})
     http_handler.setup_routes(app)
 
     runner = web.AppRunner(app)

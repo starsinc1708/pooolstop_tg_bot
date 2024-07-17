@@ -79,9 +79,6 @@ def get_ratings_for_table(period: int, u: str = "th"):
     return data, -1
 
 
-
-
-
 def get_ratings_for_table_with_watcher(watcher_link: str, period: int, u: str = "th"):
     watcher_id = db.get_watcher_id(watcher_link)
     if not watcher_id:

@@ -96,6 +96,10 @@ def get_user_locale(user: User):
     userdb = user_collection.find_one({'user_id': user.id})
     return userdb['locale'] if userdb else None
 
+def get_user_locale_by_id(user_id):
+    userdb = user_collection.find_one({'user_id': user_id})
+    return userdb['locale'] if userdb else None
+
 
 def user_sync(user_id, email: str):
     user_collection.update_one({'user_id': user_id}, {'$set': {'linked': True, 'email': email}})

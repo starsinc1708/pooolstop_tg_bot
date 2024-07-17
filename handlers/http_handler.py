@@ -9,7 +9,10 @@ from dotenv import load_dotenv
 import os
 
 from handlers.states import Greeting
-from keyboards.Inline_keyboards import get_inline_keyboard
+from keyboards.Inline_keyboards import get_inline_keyboard, ratings_keyboard
+from pooolstop_api.rating_service import parse_pool, parse_pool_with_watcher
+from utils.notification_sender import configure_rating_message, configure_message_head, format_pool_row, \
+    configure_message_footer
 
 load_dotenv()
 
@@ -138,11 +141,38 @@ async def send_ratings(request):
         request_data = await request.json()
         ratings = request_data.get('ratings')
         chat_id = request_data.get('chat_id')
-
+        locale = db.get_user_locale_by_id(chat_id)
         if chat_id and ratings:
+            data = []
+            index = 1
+            user_rate = 0
+            for pool in ratings:
+                if pool['is_user']:
+                    user_rate = float(pool['avr_pay_rate'])
+
+            if user_rate == 0:
+                for pool in ratings:
+                    data.append(parse_pool(pool, index))
+                    index = index + 1
+                head_key = "ratings_msg_head"
+                footer_key = "ratings_msg_footer"
+                msg = configure_message_head(locale, head_key, 7)
+                for pool in data:
+                    msg += format_pool_row(pool, with_user=False)
+                msg += configure_message_footer(locale, footer_key)
+            else:
+                for pool in ratings:
+                    data.append(parse_pool_with_watcher(pool, index, user_rate))
+                    index = index + 1
+                head_key = "ratings_msg_head_watcher"
+                footer_key = "ratings_msg_footer_watcher"
+                msg = configure_message_head(locale, head_key, 7)
+                for pool in data:
+                    msg += format_pool_row(pool, with_user=True)
+                msg += configure_message_footer(locale, footer_key)
+
             bot = Bot(token=BOT_TOKEN)
-            message_text = f"Ratings: {ratings}"
-            await bot.send_message(chat_id=chat_id, text=message_text)
+            await bot.send_message(chat_id=chat_id, text=msg, parse_mode="MARKDOWN", reply_markup=ratings_keyboard(locale))
             response = {"code": 200, "message": "Ratings sent successfully", "status": "success"}
             return web.json_response(response, status=200)
         else:
@@ -158,6 +188,6 @@ def setup_routes(app):
     app.router.add_post('/api/tgsync', check_telegram_user_synced)
     app.router.add_post('/api/message/send-to-one', send_custom_message)
     app.router.add_post('/api/message/send-to-many', send_custom_message_bulk)
-    app.router.add_post('/api/message/send_ratings', send_ratings)
+    app.router.add_post('/api/message/send-ratings', send_ratings)
 
     return app.router
