@@ -20,11 +20,9 @@ def prepare_scheduler_period(period):
     if period == 1:
         scheduler_period = "DAY"
     elif period == 7:
-        scheduler_period = "DAY"
+        scheduler_period = "WEEK"
     elif period == 30:
-        scheduler_period = "DAY"
-    elif period == 60:
-        scheduler_period = "DAY"
+        scheduler_period = "MONTH"
     return scheduler_period
 
 def prepare_data(user: User, chat: Chat, scheduler=False, scheduler_period="", pool_period=0, show_watcher=False):

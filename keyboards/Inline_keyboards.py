@@ -219,10 +219,6 @@ def notifications_keyboard(locale: str) -> InlineKeyboardMarkup:
             text=get_btn_text(locale, 'btn_period_30'),
             callback_data="subscribe_ratings_notify_period_30"
         ),
-        types.InlineKeyboardButton(
-            text=get_btn_text(locale, 'btn_period_60'),
-            callback_data="subscribe_ratings_notify_period_60"
-        ),
     )
     kb.row(
         types.InlineKeyboardButton(
