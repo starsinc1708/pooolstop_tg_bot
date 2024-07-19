@@ -7,6 +7,7 @@ from keyboards.Inline_keyboards import (
     ratings_keyboard, notifications_keyboard,
     language_keyboard, settings_logout_keyboard, service_keyboard, how_to_earn_more_keyboard
 )
+from pooolstop_api import tg_api
 from utils.locale_parser import get_message_text
 import database as db
 from utils.logger import handle_update
@@ -24,7 +25,6 @@ async def edit_message_and_set_state(callback, state, message_text, reply_markup
     await callback.message.edit_reply_markup(reply_markup=reply_markup)
     await state.set_state(new_state)
     db.set_user_state(callback.from_user.id, state=await state.get_state())
-    #db.add_callback_log(callback)
     await callback.answer()
     await handle_update(callback=callback)
 
@@ -98,7 +98,7 @@ async def send_after_logout(callback: types.CallbackQuery, state: FSMContext):
 
 @router.callback_query(F.data == "main_info_ratings")
 async def send_ratings(callback: types.CallbackQuery, state: FSMContext):
-    ratings_msg = configure_rating_message(callback.from_user.id, db.get_user_locale(callback.from_user), 7, db.get_user_watcher_link(callback.from_user))
+    ratings_msg = configure_rating_message(callback.message, callback.from_user.id, db.get_user_locale(callback.from_user), 7, db.get_user_watcher_link(callback.from_user))
     await edit_message_and_set_state(
         callback, state,
         ratings_msg,
@@ -111,7 +111,7 @@ async def send_ratings(callback: types.CallbackQuery, state: FSMContext):
 @router.callback_query(F.data.startswith("main_info_ratings_"))
 async def send_ratings_page(callback: types.CallbackQuery):
     period = int(callback.data.split("_")[3]) if len(callback.data.split("_")) == 4 else 7
-    ratings_msg = configure_rating_message(callback.from_user.id, db.get_user_locale(callback.from_user), period, db.get_user_watcher_link(callback.from_user))
+    ratings_msg = configure_rating_message(callback.message, callback.from_user.id, db.get_user_locale(callback.from_user), period, db.get_user_watcher_link(callback.from_user))
 
     await callback.message.edit_text(
         text=ratings_msg,
@@ -159,22 +159,24 @@ async def accept_language(callback: types.CallbackQuery, state: FSMContext):
 
 @router.callback_query(StateFilter(Greeting.notifications_ratings_page), F.data.startswith("subscribe_ratings_notify_period_"))
 async def send_after_subscribe(callback: types.CallbackQuery, state: FSMContext):
+    sch_period = int(callback.data.split("_")[4])
     db.user_notification_subscribe(
         callback.from_user,
         callback.message.chat,
         "ratings",
         int(callback.data.split("_")[4])
     )
-    if not db.find_user(callback.from_user.id)['linked']:
-        db.user_notification_subscribe(
-            callback.from_user,
-            callback.message.chat,
-            "registration_proposal",
-            int(callback.data.split("_")[4])
-        )
+    tg_api.add_scheduler(callback.from_user, callback.message.chat, sch_period)
+    # if not db.find_user(callback.from_user.id)['linked']:
+    #     db.user_notification_subscribe(
+    #         callback.from_user,
+    #         callback.message.chat,
+    #         "registration_proposal",
+    #         int(callback.data.split("_")[4])
+    #     )
 
     successful_sub_msg = get_message_text(db.get_user_locale(callback.from_user), "successful_sub")
-    ratings_msg = configure_rating_message(callback.from_user.id, db.get_user_locale(callback.from_user), 7, db.get_user_watcher_link(callback.from_user))
+    ratings_msg = configure_rating_message(callback.message, callback.from_user.id, db.get_user_locale(callback.from_user), 7, db.get_user_watcher_link(callback.from_user))
 
     await callback.message.edit_text(
         text=successful_sub_msg,
@@ -200,6 +202,7 @@ async def send_after_unsubscribe(callback: types.CallbackQuery, state: FSMContex
         callback.from_user,
         "ratings",
     )
+    tg_api.delete_scheduler(callback.from_user, callback.message.chat)
     successful_unsub_msg = get_message_text(db.get_user_locale(callback.from_user), "successful_unsub")
 
     await callback.message.edit_text(

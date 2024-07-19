@@ -11,6 +11,7 @@ MONGODB_URL = os.getenv('MONGODB_URL')
 client = MongoClient(MONGODB_URL)
 db = client['pooolstop_webapp']
 command_logs = db['command_logs']
+message_logs = db['message_logs']
 callback_logs = db['callback_logs']
 user_states = db['user_states']
 user_collection = db['users']
@@ -100,6 +101,12 @@ def get_user_locale_by_id(user_id):
     userdb = user_collection.find_one({'user_id': user_id})
     return userdb['locale'] if userdb else None
 
+def get_user_scheduler(user_id):
+    notification = notifications.find_one({'user_id': user_id})
+    if notification and notification['notification_type'] == 'ratings':
+        return notification
+
+
 
 def user_sync(user_id, email: str):
     user_collection.update_one({'user_id': user_id}, {'$set': {'linked': True, 'email': email}})
@@ -148,7 +155,7 @@ def add_callback_log(callback: CallbackQuery):
     message_data = {
         'message_id': callback.message.message_id,
         'user_id': callback.from_user.id,
-        'date': callback.message.date,
+        'datetime': callback.message.date,
         'callback_data': callback.data
     }
     callback_logs.insert_one(message_data)
@@ -157,9 +164,18 @@ def add_callback_log(callback: CallbackQuery):
 def add_command_log(message: Message):
     command_log = {
         'user_id': message.from_user.id,
-        'command': message.text
+        'command': message.text,
+        'datetime': message.date,
     }
     command_logs.insert_one(command_log)
+
+def add_message_log(message: Message):
+    message_log = {
+        'user_id': message.from_user.id,
+        'message': message.text,
+        'datetime': message.date,
+    }
+    message_logs.insert_one(message_log)
 
 
 def get_user_watcher_link(user: User):

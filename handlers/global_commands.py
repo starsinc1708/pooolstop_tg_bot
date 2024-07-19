@@ -9,7 +9,7 @@ from utils.locale_parser import get_message_text
 from utils.logger import handle_update
 import os
 from dotenv import load_dotenv
-
+from pooolstop_api import tg_api
 
 load_dotenv()
     
@@ -23,24 +23,17 @@ router = Router()
 
 @router.message(Command("start"))
 async def cmd_start(message: Message, state: FSMContext):
-    linked = db.check_user_profile_linked(message.from_user.id)
-    if linked:
-        linked_msg = get_message_text(db.get_user_locale(message.from_user), 'msg_account_connected').format(
-            message.from_user.username,
-            db.get_user_email(message.from_user.id)
-        )
-        await message.answer(
-            text=linked_msg,
-            reply_markup=continue_keyboard(db.get_user_locale(message.from_user))
-        )
-    else:
+    exists = db.find_user(message.from_user.id)
+    if not exists:
         db.add_user(message.from_user, message.chat)
-        await message.answer(
-            get_message_text(db.get_user_locale(message.from_user), "main_info_linked"),
-            parse_mode="HTML",
-            disable_web_page_preview=True,
-            reply_markup=main_info_keyboard(db.get_user_locale(message.from_user))
-        )
+        tg_api.add_user(message.from_user, message.chat)
+
+    await message.answer(
+        get_message_text(db.get_user_locale(message.from_user), "main_info_linked"),
+        parse_mode="HTML",
+        disable_web_page_preview=True,
+        reply_markup=main_info_keyboard(db.get_user_locale(message.from_user))
+    )
 
     await state.set_state(Greeting.main_menu)
 

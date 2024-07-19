@@ -7,6 +7,7 @@ from pyexpat.errors import messages
 import database as db
 from handlers.states import Greeting
 from keyboards.Inline_keyboards import main_info_keyboard, continue_keyboard, ratings_keyboard, back_keyboard
+from pooolstop_api import tg_api
 from utils.locale_parser import get_message_text
 from utils.logger import handle_update
 import os
@@ -35,7 +36,7 @@ async def edit_message_and_set_state(message: Message, state, message_text, repl
 @router.message(F.text, StateFilter(Greeting.rating_page))
 async def watcher_link(message: Message, state: FSMContext):
     from utils.notification_sender import configure_rating_message
-    ratings_msg = configure_rating_message(message.from_user.id, db.get_user_locale(message.from_user), 7, watcher_link=message.text)
+    ratings_msg = configure_rating_message(message, message.from_user.id, db.get_user_locale(message.from_user), 7, watcher_link=message.text)
     await edit_message_and_set_state(
         message, state,
         ratings_msg,

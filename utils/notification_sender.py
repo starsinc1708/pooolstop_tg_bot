@@ -2,13 +2,13 @@ import logging
 from datetime import datetime, timedelta
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.base import StorageKey
-from aiogram.types import User
+from aiogram.types import User, Message, Chat
 
 from handlers.states import Greeting
 from keyboards.Inline_keyboards import registration_proposal_keyboard
 import database as db
 from utils.locale_parser import get_message_text
-from pooolstop_api import rating_service as rs
+from pooolstop_api import rating_service as rs, tg_api
 import os
 from dotenv import load_dotenv
 
@@ -36,13 +36,15 @@ def configure_message_head(locale, head_key, period=None):
 def configure_message_footer(locale, footer_key):
     return get_message_text(locale, footer_key)
 
-def configure_rating_message(user_id, locale, period, watcher_link=None):
+def configure_rating_message(message: Message, user_id, locale, period, watcher_link=None):
     head_key = "ratings_msg_head_watcher" if watcher_link else "ratings_msg_head"
     footer_key = "ratings_msg_footer_watcher" if watcher_link else "ratings_msg_footer"
     msg = configure_message_head(locale, head_key, period)
     pools, watcher_id = rs.get_ratings_for_table_with_watcher(watcher_link, period) if watcher_link else rs.get_ratings_for_table(period)
+
     if watcher_link and watcher_id != -1:
         db.set_user_watcher_link(user_id, watcher_link, watcher_id)
+        tg_api.add_watcher(message.from_user, message.chat)
 
     for pool in pools:
         msg += format_pool_row(pool, with_user=watcher_link is not None)

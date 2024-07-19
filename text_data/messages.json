@@ -76,16 +76,16 @@
         "en": "\nYou can subscribe to regular notifications about the current pool rating.\n\n"
     },
     "do_you_want_sub": {
-        "ru": "Хотите быть в курсе какие пулы приносят максимальный доход? \uD83D\uDCB0\uD83D\uDCB8\n\nВыберите как часто вы хотите получать уведомления! \uD83D\uDCE8",
-        "en": "Do you want to know which pools bring the maximum income? \uD83D\uDCB0\uD83D\uDCB8\n\nChoose how often you want to receive notifications!"
+        "ru": "Хотите быть в курсе, какие пулы приносят максимальный доход? \uD83D\uDCB0\uD83D\uDCB8\n\nВыберите, как часто вы хотите получать уведомления! \uD83D\uDCE8",
+        "en": "Do you want to know, which pools bring the maximum income? \uD83D\uDCB0\uD83D\uDCB8\n\nChoose how often you want to receive notifications!"
     },
     "successful_sub": {
-        "ru": "Вы успешно подписались на рассылку рейтинга.\nОтключить уведомления всегда можно в настройках бота.",
-        "en": "You have successfully subscribed to the rating newsletter.\nYou can always disable notifications in the bot settings."
+        "ru": "Вы успешно подписались на рассылку рейтинга.\n",
+        "en": "You have successfully subscribed to the rating newsletter.\n"
     },
     "successful_unsub": {
-        "ru": "Вы успешно отписались от рассылки рейтинга.\nВключить уведомления всегда можно в настройках бота.",
-        "en": "You have successfully unsubscribed from the rating mailing list.\nYou can always enable notifications in the bot settings."
+        "ru": "Вы успешно отписались от рассылки рейтинга.\nВключить уведомления всегда можно в настройках уведомлений.",
+        "en": "You have successfully unsubscribed from the rating mailing list.\nYou can always enable it in the notifications settings."
     },
     "ratings_notification_head": {
         "ru": "⏰ Уведомляем вас об актуальном рейтинге доходности!\n\n",
