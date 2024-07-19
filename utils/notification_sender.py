@@ -44,7 +44,7 @@ def configure_rating_message(message: Message, user_id, locale, period, watcher_
 
     if watcher_link and watcher_id != -1:
         db.set_user_watcher_link(user_id, watcher_link, watcher_id)
-        tg_api.add_watcher(message.from_user, message.chat)
+        #tg_api.add_watcher(message.from_user, message.chat)
 
     for pool in pools:
         msg += format_pool_row(pool, with_user=watcher_link is not None)

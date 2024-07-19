@@ -60,8 +60,8 @@ def delete_scheduler(user: User, chat: Chat):
     data = prepare_data(user, chat, scheduler=False, scheduler_period="", pool_period=0)
     send_request(user.id, data)
 
-def add_watcher(user: User, chat: Chat):
-    scheduler = db.get_user_scheduler(user.id)
-    scheduler_period = prepare_scheduler_period(scheduler['period'])
-    data = prepare_data(user, chat, scheduler=True, scheduler_period=scheduler_period, pool_period=7)
-    send_request(user.id, data)
+# def add_watcher(user: User, chat: Chat):
+#     scheduler = db.get_user_scheduler(user.id)
+#     scheduler_period = prepare_scheduler_period(scheduler['period'])
+#     data = prepare_data(user, chat, scheduler=True, scheduler_period=scheduler_period, pool_period=7)
+#     send_request(user.id, data)
