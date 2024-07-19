@@ -26,7 +26,7 @@ async def sync_telegram_user(request):
         response = {"code": 200, "message": "", "status": "success", "data": ""}
         return web.json_response(response, status=200)
     except Exception as e:
-        response = {"code": 400, "message": str(e), "status": "error", "data": ""}
+        response = {"code": 500, "message": str(e), "status": "error", "data": ""}
         return web.json_response(response, status=400)
 
 
@@ -37,7 +37,7 @@ async def delete_telegram_user(request):
         response = {"code": 200, "message": "", "status": "success", "data": user_info.get('tg_id')}
         return web.json_response(response, status=200)
     except Exception as e:
-        response = {"code": 400, "message": str(e), "status": "error", "data": ""}
+        response = {"code": 500, "message": str(e), "status": "error", "data": ""}
         return web.json_response(response, status=400)
 
 
@@ -52,7 +52,7 @@ async def check_telegram_user_synced(request):
             response = {"code": 400, "message": "no such user in db", "status": "not found", "data": ""}
             return web.json_response(response, status=200)
     except Exception as e:
-        response = {"code": 400, "message": str(e), "status": "error", "data": ""}
+        response = {"code": 500, "message": str(e), "status": "error", "data": ""}
         return web.json_response(response, status=400)
 
 
@@ -75,10 +75,10 @@ async def send_custom_message(request):
         else:
             raise ValueError("chat_id, message, and message_type are required fields")
     except ValueError as ve:
-        response = {"code": 400, "message": str(ve), "status": "error", "data": ""}
+        response = {"code": 500, "message": str(ve), "status": "error", "data": ""}
         return web.json_response(response, status=400)
     except Exception as e:
-        response = {"code": 400, "message": str(e), "status": "error", "data": ""}
+        response = {"code": 500, "message": str(e), "status": "error", "data": ""}
         return web.json_response(response, status=400)
 
 
@@ -112,11 +112,11 @@ async def send_custom_message_bulk(request):
         return web.json_response(response, status=200)
 
     except ValueError as ve:
-        response = {"code": 400, "message": str(ve), "status": "error", "data": ""}
+        response = {"code": 500, "message": str(ve), "status": "error", "data": ""}
         return web.json_response(response, status=400)
 
     except Exception as e:
-        response = {"code": 400, "message": str(e), "status": "error", "data": ""}
+        response = {"code": 500, "message": str(e), "status": "error", "data": ""}
         return web.json_response(response, status=400)
 
 
