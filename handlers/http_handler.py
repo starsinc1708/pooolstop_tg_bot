@@ -142,6 +142,9 @@ async def send_ratings(request):
         ratings = request_data.get('ratings')
         chat_id = request_data.get('chat_id')
         locale = db.get_user_locale_by_id(chat_id)
+        if not locale:
+            raise Exception("The user did not use the bot")
+
         if chat_id and ratings:
             data = []
             index = 1
@@ -182,7 +185,7 @@ async def send_ratings(request):
         else:
             raise ValueError("chat_id and ratings are required fields")
     except Exception as e:
-        response = {"code": 400, "message": str(e), "status": "error", "data": ""}
+        response = {"code": 500, "message": str(e), "status": "error", "data": ""}
         return web.json_response(response, status=400)
 
 
