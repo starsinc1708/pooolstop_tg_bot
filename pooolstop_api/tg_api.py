@@ -8,10 +8,12 @@ import database as db
 load_dotenv()
 
 url = os.getenv("RANK_API")
+jwt_token = os.getenv("RATING_JWT_TOKEN")
+
 
 headers = {
     "accept": "*/*",
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV0sImlkIjoyLCJzdWIiOiJ1c2VyIiwiaWF0IjoxNzE2NzYzNjk1LCJleHAiOjE3NDgyOTk2OTV9.cGXn2G0J1lOfZC25od2eb-y2Dd0yRlNoi7oTfRQp_U4",
+    "Authorization": f"Bearer {jwt_token}",
     "Content-Type": "application/json"
 }
 

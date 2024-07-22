@@ -7,6 +7,8 @@ load_dotenv()
 
 url = os.getenv("RATING_SERVICE_BASE_URL")
 add_watcher_url = os.getenv("RATING_SERVICE_ADD_WATCHER")
+jwt_token = os.getenv("RATING_JWT_TOKEN")
+
 
 headers = {
     "Accept": "*/*",
@@ -14,7 +16,7 @@ headers = {
     "Access-Control-Allow-Origin": "*",
     "Connection": "keep-alive",
     "Content-Type": "application/json",
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV0sImlkIjoyLCJzdWIiOiJ1c2VyIiwiaWF0IjoxNzE2NzYzNjk1LCJleHAiOjE3NDgyOTk2OTV9.cGXn2G0J1lOfZC25od2eb-y2Dd0yRlNoi7oTfRQp_U4",
+    "Authorization": f"Bearer {jwt_token}",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.854 YaBrowser/24.4.2.854 (beta) Yowser/2.5 Safari/537.36",
 }
 
