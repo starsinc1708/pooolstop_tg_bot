@@ -1,6 +1,7 @@
 import asyncio
 
 from aiogram.fsm.storage.base import StorageKey
+from aiogram.types import ReplyKeyboardRemove
 from aiohttp import web
 from aiogram import Bot, Dispatcher
 from db_utils import user_sync_from_web_app, desync_from_web_app, get_user_web_app, get_user_by_chat_id
@@ -133,7 +134,8 @@ async def configure_and_send_message(bot, dispatcher: Dispatcher, chat_id, messa
     storage_key = StorageKey(user_id=user['user_id'], bot_id=int(bot.id), chat_id=chat_id)
     await dispatcher.storage.set_state(storage_key, state)
 
-    await bot.send_message(chat_id=chat_id, text=message_text, reply_markup=keyboard)
+    mess = await bot.send_message(chat_id=chat_id, text=message_text, reply_markup=ReplyKeyboardRemove())
+    await bot.edit_message_reply_markup(chat_id=chat_id, message_id=mess.message_id, reply_markup=keyboard)
 
 
 async def send_ratings(request):
