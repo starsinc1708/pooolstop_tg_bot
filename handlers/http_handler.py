@@ -133,8 +133,6 @@ async def configure_and_send_message(bot, dispatcher: Dispatcher, chat_id, messa
 
     storage_key = StorageKey(user_id=user['user_id'], bot_id=int(bot.id), chat_id=chat_id)
     await dispatcher.storage.set_state(storage_key, state)
-
-    await bot.send_message(chat_id=chat_id, text="...", reply_markup=ReplyKeyboardRemove())
     await bot.send_message(chat_id=chat_id, text=message_text, reply_markup=keyboard)
 
 
