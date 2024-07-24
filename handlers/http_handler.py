@@ -69,8 +69,7 @@ async def send_custom_message(request):
         message_type = request_data.get('message_type')
         if chat_id and message_text and message_type:
             bot = Bot(token=BOT_TOKEN)
-            dp = Dispatcher()
-            await configure_and_send_message(bot, dp, chat_id, message_text, message_type)
+            await configure_and_send_message(bot, chat_id, message_text, message_type)
             response = {"code": 200, "message": f"Message {message_type} sent successfully", "status": "success"}
             return web.json_response(response, status=200)
         else:
@@ -98,13 +97,12 @@ async def send_custom_message_bulk(request):
             raise ValueError("receivers, message, and message_type are required fields")
 
         bot = Bot(token=BOT_TOKEN)
-        dp = Dispatcher()
 
         tasks = []
         for receiver in receivers:
             chat_id = receiver.get('chat_id')
             if chat_id:
-                tasks.append(configure_and_send_message(bot, dp, chat_id, message_text, message_type))
+                tasks.append(configure_and_send_message(bot, chat_id, message_text, message_type))
 
         await asyncio.gather(*tasks)
 
@@ -121,18 +119,8 @@ async def send_custom_message_bulk(request):
         return web.json_response(response, status=400)
 
 
-async def configure_and_send_message(bot, dispatcher: Dispatcher, chat_id, message_text, message_type):
-    user = await get_user_by_chat_id(chat_id)
-    keyboard = get_inline_keyboard(message_type, user['locale'])
-
-    if message_type == 'rating_notify':
-        db.set_user_state(user['user_id'], state=Greeting.rating_page.state)
-    elif message_type == 'back':
-        db.set_user_state(user['user_id'], state=Greeting.menu_page.state)
-    state = db.get_user_state(user_id=user['user_id'])
-
-    storage_key = StorageKey(user_id=user['user_id'], bot_id=int(bot.id), chat_id=chat_id)
-    await dispatcher.storage.set_state(storage_key, state)
+async def configure_and_send_message(bot, chat_id, message_text, message_type):
+    keyboard = get_inline_keyboard(message_type)
     await bot.send_message(chat_id=chat_id, text=message_text, reply_markup=keyboard)
 
 

@@ -12,7 +12,7 @@ ABOUT_US_URL = os.getenv('ABOUT_US_URL')
 QUESTION_BOT_URL = os.getenv('QUESTION_BOT_URL')
 
 
-def get_inline_keyboard(message_type, locale):
+def get_inline_keyboard(message_type, locale="en"):
     if message_type == 'rating_notify':
         return ratings_keyboard(locale)
     elif message_type == 'back':
