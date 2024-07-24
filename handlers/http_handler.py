@@ -120,7 +120,11 @@ async def send_custom_message_bulk(request):
 
 
 async def configure_and_send_message(bot, chat_id, message_text, message_type):
-    keyboard = get_inline_keyboard(message_type)
+    user = await get_user_by_chat_id(chat_id)
+    if user:
+        keyboard = get_inline_keyboard(message_type, user['locale'])
+    else:
+        keyboard = get_inline_keyboard(message_type)
     await bot.send_message(chat_id=chat_id, text=message_text, reply_markup=keyboard)
 
 

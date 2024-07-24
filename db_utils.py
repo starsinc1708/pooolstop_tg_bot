@@ -10,11 +10,14 @@ db = client['pooolstop_webapp']
 user_from_web_app = db['user_web_app']
 user_collection = db['users']
 
+
 async def user_sync(user_id, email: str):
     user_collection.update_one({'user_id': user_id}, {'$set': {'linked': True, 'email': email}})
 
+
 async def user_desync(user_id):
     user_collection.update_one({'user_id': user_id}, {'$set': {'linked': False, 'email': ''}})
+
 
 async def user_sync_from_web_app(user_info):
     db_user = user_from_web_app.find_one({'user_id': user_info['tg_id']})
@@ -38,12 +41,14 @@ async def user_sync_from_web_app(user_info):
         user_from_web_app.insert_one(data)
     await user_sync(user_info['tg_id'], user_info['email'])
 
+
 async def get_user_web_app(info):
     db_user = user_from_web_app.find_one({'user_id': info['tg_id']})
     if db_user:
         return {'accessToken': db_user['accessToken'],
                 'refreshToken': db_user['refreshToken'],
                 'tg_id': db_user['user_id']}
+
 
 async def desync_from_web_app(info):
     db_user = user_from_web_app.find_one({'user_id': info['tg_id']})
