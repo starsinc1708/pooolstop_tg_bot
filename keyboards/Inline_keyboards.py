@@ -17,6 +17,8 @@ def get_inline_keyboard(message_type, locale="en"):
         return ratings_keyboard(locale)
     elif message_type == 'back':
         return back_keyboard(locale)
+    elif message_type == 'bot_update':
+        return bot_update_keyboard(locale)
     else:
         return back_keyboard(locale)
 
@@ -148,6 +150,23 @@ def settings_keyboard(locale: str) -> InlineKeyboardMarkup:
     kb.row(
         types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_back'),
+            callback_data="main_info_back"
+        ),
+    )
+    return kb.as_markup(resize_keyboard=True)
+
+
+def bot_update_keyboard(locale: str) -> InlineKeyboardMarkup:
+    kb = InlineKeyboardBuilder()
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_learn_more'),
+            callback_data="main_info_learn_more"
+        ),
+    )
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_to_menu'),
             callback_data="main_info_back"
         ),
     )

@@ -137,7 +137,7 @@ async def configure_and_send_message(bot, chat_ids, message_text, message_type):
             else:
                 keyboard = get_inline_keyboard(message_type)
 
-            await bot.send_message(chat_id=chat_id, text=message_text, reply_markup=keyboard)
+            await bot.send_message(chat_id=chat_id, text=message_text, reply_markup=keyboard, parse_mode='HTML', disable_web_page_preview=True)
             results.append({"chat_id": chat_id, "status": "success", "error_message": None})
 
         except Exception as e:

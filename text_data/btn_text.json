@@ -56,8 +56,8 @@
         "en": "< Back"
     },
     "btn_to_menu": {
-        "ru": "< Назад в меню",
-        "en": "< Back to menu"
+        "ru": "Перейти в меню",
+        "en": "Open menu"
     },
     "btn_register_in_webapp": {
         "ru": "\uD83D\uDCF1 Регистрация в приложении",
