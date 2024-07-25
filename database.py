@@ -197,11 +197,25 @@ def get_watcher_id(watcher_link):
     return w_id['watcher_id'] if w_id else None
 
 
-def log_custom_message(chat_id, message_text, message_type):
+async def log_custom_message(chat_id, message_text, message_type, status, error_message=None):
     message_log = {
         "chat_id": chat_id,
         "message_text": message_text,
         "message_type": message_type,
+        "status": status,
+        "error_message": error_message,
         "timestamp": datetime.datetime.utcnow()
     }
     custom_msg_logs.insert_one(message_log)
+
+async def log_bulk_send(potential_sends, successful_sends, message_text, message_type, results):
+    bulk_log = {
+        "potential_sends": potential_sends,
+        "successful_sends": successful_sends,
+        "message_text": message_text,
+        "message_type": message_type,
+        "timestamp": datetime.datetime.utcnow(),
+        "results": results
+    }
+    custom_msg_logs.insert_one(bulk_log)
+

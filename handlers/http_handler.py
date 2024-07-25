@@ -59,17 +59,23 @@ async def check_telegram_user_synced(request):
 
 async def send_custom_message(request):
     try:
-        request_body = await request.text()
-        if not request_body.strip():
-            raise ValueError("Request body is empty")
-
         request_data = await request.json()
         chat_id = request_data.get('chat_id')
         message_text = request_data.get('message')
         message_type = request_data.get('message_type')
+
         if chat_id and message_text and message_type:
             bot = Bot(token=BOT_TOKEN)
-            await configure_and_send_message(bot, chat_id, message_text, message_type)
+            results = await configure_and_send_message(bot, [chat_id], message_text, message_type)
+            if results and len(results) == 1:
+                result = results[0]
+                await db.log_custom_message(
+                    chat_id=chat_id,
+                    message_text=message_text,
+                    message_type=message_type,
+                    status=result["status"],
+                    error_message=result.get("error_message")
+                )
             response = {"code": 200, "message": f"Message {message_type} sent successfully", "status": "success"}
             return web.json_response(response, status=200)
         else:
@@ -80,6 +86,7 @@ async def send_custom_message(request):
     except Exception as e:
         response = {"code": 500, "message": str(e), "status": "error", "data": ""}
         return web.json_response(response, status=400)
+
 
 
 async def send_custom_message_bulk(request):
@@ -98,15 +105,17 @@ async def send_custom_message_bulk(request):
 
         bot = Bot(token=BOT_TOKEN)
 
-        tasks = []
-        for receiver in receivers:
-            chat_id = receiver.get('chat_id')
-            if chat_id:
-                tasks.append(configure_and_send_message(bot, chat_id, message_text, message_type))
+        chat_ids = [receiver.get('chat_id') for receiver in receivers if receiver.get('chat_id')]
+        potential_sends = len(chat_ids)
 
-        await asyncio.gather(*tasks)
+        # Запуск рассылки и получение результатов
+        results = await configure_and_send_message(bot, chat_ids, message_text, message_type)
+        successful_sends = sum(1 for result in results if result["status"] == "success")
 
-        response = {"code": 200, "message": f"Message {message_type} sent successfully to all receivers",
+        # Логирование массовой рассылки с деталями
+        await db.log_bulk_send(potential_sends, successful_sends, message_text, message_type, results)
+
+        response = {"code": 200, "message": f"Message {message_type} sent successfully to {successful_sends}/{potential_sends} receivers",
                     "status": "success"}
         return web.json_response(response, status=200)
 
@@ -119,17 +128,30 @@ async def send_custom_message_bulk(request):
         return web.json_response(response, status=400)
 
 
-async def configure_and_send_message(bot, chat_id, message_text, message_type):
-    user = await get_user_by_chat_id(chat_id)
-    if user:
-        keyboard = get_inline_keyboard(message_type, user['locale'])
-    else:
-        keyboard = get_inline_keyboard(message_type)
 
-    # Логирование сообщения
-    db.log_custom_message(chat_id, message_text, message_type)
+async def configure_and_send_message(bot, chat_ids, message_text, message_type):
+    results = []
+    # Обработаем случай, когда chat_ids — это одиночное значение
+    if isinstance(chat_ids, int):
+        chat_ids = [chat_ids]
 
-    await bot.send_message(chat_id=chat_id, text=message_text, reply_markup=keyboard)
+    for chat_id in chat_ids:
+        try:
+            user = await get_user_by_chat_id(chat_id)
+            if user:
+                keyboard = get_inline_keyboard(message_type, user['locale'])
+            else:
+                keyboard = get_inline_keyboard(message_type)
+
+            await bot.send_message(chat_id=chat_id, text=message_text, reply_markup=keyboard)
+            results.append({"chat_id": chat_id, "status": "success", "error_message": None})
+
+        except Exception as e:
+            results.append({"chat_id": chat_id, "status": "failure", "error_message": str(e)})
+
+    return results
+
+
 
 
 async def send_ratings(request):

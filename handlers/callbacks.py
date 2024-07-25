@@ -19,7 +19,7 @@ router = Router()
 
 
 async def edit_message_and_set_state(callback, state, message_text, reply_markup, new_state, parse_mode="HTML"):
-    #db.add_user(callback.from_user, callback.message.chat)
+    db.add_user(callback.from_user, callback.message.chat)
     await callback.message.edit_text(
         text=message_text,
         parse_mode=parse_mode,
