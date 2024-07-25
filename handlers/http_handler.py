@@ -125,6 +125,10 @@ async def configure_and_send_message(bot, chat_id, message_text, message_type):
         keyboard = get_inline_keyboard(message_type, user['locale'])
     else:
         keyboard = get_inline_keyboard(message_type)
+
+    # Логирование сообщения
+    db.log_custom_message(chat_id, message_text, message_type)
+
     await bot.send_message(chat_id=chat_id, text=message_text, reply_markup=keyboard)
 
 

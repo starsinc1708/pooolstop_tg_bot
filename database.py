@@ -12,6 +12,7 @@ client = MongoClient(MONGODB_URL)
 db = client['pooolstop_webapp']
 command_logs = db['command_logs']
 message_logs = db['message_logs']
+custom_msg_logs = db['custom_msg_logs']
 callback_logs = db['callback_logs']
 user_states = db['user_states']
 user_collection = db['users']
@@ -194,3 +195,13 @@ def set_user_watcher_link(user_id: int, link: str, watcher_id: int):
 def get_watcher_id(watcher_link):
     w_id = user_watcher_link.find_one({'watcher_link': watcher_link})
     return w_id['watcher_id'] if w_id else None
+
+
+def log_custom_message(chat_id, message_text, message_type):
+    message_log = {
+        "chat_id": chat_id,
+        "message_text": message_text,
+        "message_type": message_type,
+        "timestamp": datetime.datetime.utcnow()
+    }
+    custom_msg_logs.insert_one(message_log)
