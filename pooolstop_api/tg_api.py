@@ -3,8 +3,6 @@ import requests
 from aiogram.types import User, Chat
 from dotenv import load_dotenv
 
-import database as db
-
 load_dotenv()
 
 url = os.getenv("RANK_API")

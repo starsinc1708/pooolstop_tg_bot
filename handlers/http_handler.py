@@ -1,18 +1,12 @@
-import asyncio
-
-from aiogram.fsm.storage.base import StorageKey
-from aiogram.types import ReplyKeyboardRemove
 from aiohttp import web
-from aiogram import Bot, Dispatcher
+from aiogram import Bot
 from db_utils import user_sync_from_web_app, desync_from_web_app, get_user_web_app, get_user_by_chat_id
 import database as db
 from dotenv import load_dotenv
 import os
-
-from handlers.states import Greeting
 from keyboards.Inline_keyboards import get_inline_keyboard, ratings_keyboard
 from pooolstop_api.rating_service import parse_pool, parse_pool_with_watcher
-from utils.notification_sender import configure_rating_message, configure_message_head, format_pool_row, \
+from utils.notification_sender import configure_message_head, format_pool_row, \
     configure_message_footer
 
 load_dotenv()

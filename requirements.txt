@@ -5,3 +5,6 @@ pymongo
 aiohttp
 requests
 urllib3
+aiohttp-cors
+numpy
+motor

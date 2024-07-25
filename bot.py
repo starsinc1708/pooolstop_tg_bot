@@ -2,11 +2,9 @@ import os
 import logging
 import asyncio
 from aiogram import Bot, Dispatcher
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from aiohttp import web
 import aiohttp_cors
 from handlers import callbacks, global_commands, text_messages, http_handler
-from utils.notification_sender import send_rating_notification
 from utils.state_manager import set_users_states
 from dotenv import load_dotenv
 import urllib3

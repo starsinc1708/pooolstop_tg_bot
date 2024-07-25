@@ -1,5 +1,6 @@
 import os
-import requests
+import aiohttp
+import asyncio
 from dotenv import load_dotenv
 import database as db
 
@@ -69,42 +70,45 @@ def parse_pool_with_watcher(pool, index, user_rate):
     return pool_data
 
 
-def get_ratings_for_table(period: int, u: str = "th"):
+async def get_ratings_for_table(period: int, u: str = "th"):
     querystring = {"period": str(period), "unit": u}
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    response_json = response.json()
-    data = []
-    index = 1
-    for pool in response_json:
-        data.append(parse_pool(pool, index))
-        index = index + 1
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url, headers=headers, params=querystring) as response:
+            response_json = await response.json()
+            data = []
+            index = 1
+            for pool in response_json:
+                data.append(parse_pool(pool, index))
+                index += 1
     return data, -1
 
 
-def get_ratings_for_table_with_watcher(watcher_link: str, period: int, u: str = "th"):
-    watcher_id = db.get_watcher_id(watcher_link)
+async def get_ratings_for_table_with_watcher(watcher_link: str, period: int, u: str = "th"):
+    watcher_id = await db.get_watcher_id(watcher_link)
     if not watcher_id:
         link = {"link": watcher_link}
-        response = requests.request("POST", add_watcher_url, json=link, headers=headers)
-        response_json = response.json()
-        watcher_id = response_json['watcher_id']
+        async with aiohttp.ClientSession() as session:
+            async with session.post(add_watcher_url, json=link, headers=headers) as response:
+                response_json = await response.json()
+                watcher_id = response_json.get('watcher_id', None)
 
     querystring = {"period": str(period), "unit": u, "watcher_id": watcher_id}
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    response_json = response.json()
-    data = []
-    index = 1
-    user_rate = 0
-    for pool in response_json:
-        if pool['is_user']:
-            user_rate = float(pool['avr_pay_rate'])
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url, headers=headers, params=querystring) as response:
+            response_json = await response.json()
+            data = []
+            index = 1
+            user_rate = 0
+            for pool in response_json:
+                if pool['is_user']:
+                    user_rate = float(pool['avr_pay_rate'])
 
-    if user_rate == 0:
-        for pool in response_json:
-            data.append(parse_pool(pool, index))
-            index = index + 1
-    else:
-        for pool in response_json:
-            data.append(parse_pool_with_watcher(pool, index, user_rate))
-            index = index + 1
+            if user_rate == 0:
+                for pool in response_json:
+                    data.append(parse_pool(pool, index))
+                    index += 1
+            else:
+                for pool in response_json:
+                    data.append(parse_pool_with_watcher(pool, index, user_rate))
+                    index += 1
     return data, watcher_id if watcher_id else -1

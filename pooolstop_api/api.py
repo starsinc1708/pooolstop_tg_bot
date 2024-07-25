@@ -7,7 +7,7 @@ API_URL = "https://lk.poools.top/api/v1/"
 
 async def get_balance(user_id):
     url = API_URL + "balance"
-    tokens = db.get_user_tokens(user_id)
+    tokens = await db.get_user_tokens(user_id)
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Accept-Language": "ru,en;q=0.9",
@@ -34,7 +34,7 @@ async def get_balance(user_id):
 
 async def get_statistics(user_id):
     url = API_URL + "dashboard"
-    tokens = db.get_user_tokens(user_id)
+    tokens = await db.get_user_tokens(user_id)
 
     payload = {
         "start": round(time.time() * 1000),
@@ -88,7 +88,7 @@ def get_worker_icon(worker):
 
 async def get_workers_table(user_id):
     url = API_URL + "miners"
-    tokens = db.get_user_tokens(user_id)
+    tokens = await db.get_user_tokens(user_id)
 
     headers = {
         "Accept": "application/json, text/plain, */*",

@@ -2,13 +2,12 @@ import logging
 from datetime import datetime, timedelta
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.base import StorageKey
-from aiogram.types import User, Message, Chat
-
+from aiogram.types import Message
 from handlers.states import Greeting
 from keyboards.Inline_keyboards import registration_proposal_keyboard
 import database as db
 from utils.locale_parser import get_message_text
-from pooolstop_api import rating_service as rs, tg_api
+from pooolstop_api import rating_service as rs
 import os
 from dotenv import load_dotenv
 
@@ -36,14 +35,14 @@ def configure_message_head(locale, head_key, period=None):
 def configure_message_footer(locale, footer_key):
     return get_message_text(locale, footer_key)
 
-def configure_rating_message(message: Message, user_id, locale, period, watcher_link=None):
+async def configure_rating_message(message: Message, user_id, locale, period, watcher_link=None):
     head_key = "ratings_msg_head_watcher" if watcher_link else "ratings_msg_head"
     footer_key = "ratings_msg_footer_watcher" if watcher_link else "ratings_msg_footer"
     msg = configure_message_head(locale, head_key, period)
-    pools, watcher_id = rs.get_ratings_for_table_with_watcher(watcher_link, period) if watcher_link else rs.get_ratings_for_table(period)
+    pools, watcher_id = await rs.get_ratings_for_table_with_watcher(watcher_link, period) if watcher_link else await rs.get_ratings_for_table(period)
 
     if watcher_link and watcher_id != -1:
-        db.set_user_watcher_link(user_id, watcher_link, watcher_id)
+        await db.set_user_watcher_link(user_id, watcher_link, watcher_id)
         #tg_api.add_watcher(message.from_user, message.chat)
 
     for pool in pools:
@@ -68,7 +67,7 @@ async def send_notifications(bot, dispatcher, notification_type, configure_msg_f
         last_notification = datetime.fromisoformat(str(item['last_notification_datetime']))
         period = item['period']
         if last_notification <= datetime.utcnow() - timedelta(days=period):
-            user = db.find_user(item['user_id'])
+            user = await db.find_user(item['user_id'])
             notification = {
                 'user_id': item['user_id'],
                 'chat_id': item['chat']['id'],
@@ -86,8 +85,8 @@ async def send_notifications(bot, dispatcher, notification_type, configure_msg_f
                                    disable_web_page_preview=True,
                                    reply_markup=keyboard_func(notification['locale']) if keyboard_func else None)
 
-            db.update_notification(notification['user_id'], notification_type)
-            db.set_user_state(notification['user_id'], state=target_state.state)
+            await db.update_notification(notification['user_id'], notification_type)
+            await db.set_user_state(notification['user_id'], state=target_state.state)
 
             state = db.get_user_state(user_id=notification['user_id'])
             storage_key = StorageKey(user_id=notification['user_id'], bot_id=int(BOT_ID), chat_id=notification['chat_id'])

@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 import database as db
 from handlers.states import Greeting
-from keyboards.Inline_keyboards import main_info_keyboard, continue_keyboard
+from keyboards.Inline_keyboards import main_info_keyboard
 from utils.locale_parser import get_message_text
 from utils.logger import handle_update
 import os
