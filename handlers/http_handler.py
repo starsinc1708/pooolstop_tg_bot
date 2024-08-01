@@ -153,7 +153,7 @@ async def send_ratings(request):
         request_data = await request.json()
         ratings = request_data.get('ratings')
         chat_id = request_data.get('chat_id')
-        locale = db.get_user_locale_by_id(chat_id)
+        locale = await db.get_user_locale_by_id(chat_id)
         if not locale:
             raise Exception("The user did not use the bot")
 
