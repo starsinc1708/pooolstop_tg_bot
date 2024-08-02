@@ -77,8 +77,8 @@ def how_to_earn_more_keyboard(locale: str) -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     kb.row(
         types.InlineKeyboardButton(
-            text=get_btn_text(locale, 'btn_ratings'),
-            callback_data="main_info_ratings"
+            text=get_btn_text(locale, 'btn_profile'),
+            web_app=WebAppInfo(url=URL_BASE)
         ),
     )
     kb.row(
@@ -162,6 +162,12 @@ def bot_update_keyboard(locale: str) -> InlineKeyboardMarkup:
         types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_learn_more'),
             callback_data="main_info_learn_more"
+        ),
+    )
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_how_to_earn_more'),
+            callback_data="main_info_how_to_earn_more"
         ),
     )
     kb.row(
