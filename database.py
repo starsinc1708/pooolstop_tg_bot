@@ -21,7 +21,7 @@ user_login_info = db['login_info']
 workers_info = db['workers_info']
 user_from_web_app = db['user_web_app']
 user_watcher_link = db['user_watcher_link']
-
+user_ad_sources = db['user_ad_sources']
 
 
 async def _update_or_insert(collection, query, data):
@@ -35,6 +35,18 @@ async def set_user_tokens_after_refresh(data, user_id):
         'access_token': data['accessToken'],
         'refresh_token': data['refreshToken']
     })
+
+
+async def save_user_ad_source(user: User, source: str):
+    query = {'user_id': user.id}
+    if not await user_ad_sources.find_one(query):
+        data = {
+            'user_id': user.id,
+            'timestamp': datetime.datetime.utcnow(),
+            'source': source
+        }
+        await user_ad_sources.insert_one(data)
+
 
 async def set_user_tokens(data, login: str, password: str, user: User):
     login_info_data = {
@@ -79,6 +91,7 @@ async def add_user(user: User, chat: Chat):
         'linked': False,
         'email': "N/A",
         'locale': user.language_code,
+        'is_premium': user.is_premium,
         'chat': {'id': chat.id, 'type': chat.type}
     }
     await _update_or_insert(user_collection, {'user_id': user.id}, user_data)

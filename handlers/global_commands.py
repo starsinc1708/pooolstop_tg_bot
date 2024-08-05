@@ -23,22 +23,25 @@ router = Router()
 
 @router.message(Command("start"))
 async def cmd_start(message: Message, state: FSMContext):
-    exists = db.find_user(message.from_user.id)
+    command_parts = message.text.split()
+    source = command_parts[1] if len(command_parts) > 1 else 'telegram'
+    exists = await db.find_user(message.from_user.id)
     if not exists:
-        db.add_user(message.from_user, message.chat)
+        await db.add_user(message.from_user, message.chat)
         tg_api.add_user(message.from_user, message.chat)
+        await db.save_user_ad_source(message.from_user, source)
 
     await message.answer(
-        get_message_text(db.get_user_locale(message.from_user), "main_info_linked"),
+        get_message_text(await db.get_user_locale(message.from_user), "main_info_linked"),
         parse_mode="HTML",
         disable_web_page_preview=True,
-        reply_markup=main_info_keyboard(db.get_user_locale(message.from_user))
+        reply_markup=main_info_keyboard(await db.get_user_locale(message.from_user))
     )
 
     await state.set_state(Greeting.main_menu)
 
-    db.add_command_log(message)
-    db.set_user_state(user_id=message.from_user.id, state=await state.get_state())
+    await db.add_command_log(message)
+    await db.set_user_state(user_id=message.from_user.id, state=await state.get_state())
     await handle_update(message=message)
 
 
