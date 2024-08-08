@@ -44,9 +44,9 @@ async def create_new_user_stat_file(period: int) -> FSInputFile:
                 'Фамилия': last_name,
                 'Время перехода': source_timestamp,
                 'Тип лога': 'Команда',
-                'Детали лога': command['command'],
+                'Детали лога': command.get('command', 'N/A'),
                 'Текст кнопки': "",
-                'Время': command['datetime']
+                'Время': command.get('datetime', 'N/A')
             })
 
         for callback in callbacks:
@@ -57,9 +57,9 @@ async def create_new_user_stat_file(period: int) -> FSInputFile:
                 'Фамилия': last_name,
                 'Время перехода': source_timestamp,
                 'Тип лога': 'Нажатие кнопки',
-                'Детали лога': callback['callback_data'],
-                'Текст кнопки': locale_parser.get_btn_text("ru", get_btn_tag_from_key(callback['callback_data'])),
-                'Время': callback['datetime']
+                'Детали лога': callback.get('callback_data', 'N/A'),
+                'Текст кнопки': locale_parser.get_btn_text("ru", get_btn_tag_from_key(callback.get('callback_data', ''))),
+                'Время': callback.get('datetime', 'N/A')
             })
 
     df = pd.DataFrame(user_stats)
