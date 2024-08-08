@@ -50,6 +50,10 @@ async def create_new_user_stat_file(period: int) -> FSInputFile:
             })
 
         for callback in callbacks:
+            callback_data = callback.get('callback_data', 'N/A')
+            tag = get_btn_tag_from_key(callback_data)
+            button_text = locale_parser.get_btn_text("ru", tag)
+
             user_stats.append({
                 'ID пользователя': user_id,
                 'Username': username,
@@ -57,8 +61,8 @@ async def create_new_user_stat_file(period: int) -> FSInputFile:
                 'Фамилия': last_name,
                 'Время перехода': source_timestamp,
                 'Тип лога': 'Нажатие кнопки',
-                'Детали лога': callback.get('callback_data', 'N/A'),
-                'Текст кнопки': locale_parser.get_btn_text("ru", get_btn_tag_from_key(callback['callback_data'])),
+                'Детали лога': callback_data,
+                'Текст кнопки': button_text,
                 'Время': callback.get('datetime', 'N/A')
             })
 
