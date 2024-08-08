@@ -58,7 +58,7 @@ async def create_new_user_stat_file(period: int) -> FSInputFile:
                 'Время перехода': source_timestamp,
                 'Тип лога': 'Нажатие кнопки',
                 'Детали лога': callback.get('callback_data', 'N/A'),
-                'Текст кнопки': locale_parser.get_btn_text("ru", get_btn_tag_from_key(callback.get('callback_data', ''))),
+                'Текст кнопки': locale_parser.get_btn_text("ru", get_btn_tag_from_key(callback['callback_data'])),
                 'Время': callback.get('datetime', 'N/A')
             })
 
