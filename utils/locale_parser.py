@@ -20,6 +20,9 @@ def get_message_text(locale: str, tag: str) -> str:
 def get_btn_text(locale: str, tag: str) -> str:
     """Получить текст кнопки по локали и тегу."""
     if locale == "ru" or locale == "en":
-        return btn_data[tag][locale]
+        try:
+            return btn_data[tag][locale]
+        except KeyError:
+            return 'Не найдено'
     else:
         return btn_data[tag]["en"]
