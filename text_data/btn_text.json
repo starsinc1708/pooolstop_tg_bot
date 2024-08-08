@@ -55,6 +55,18 @@
         "ru": "< Назад",
         "en": "< Back"
     },
+    "btn_new_user_stat": {
+        "ru": "Статистика по новым пользователям",
+        "en": "New users statistics"
+    },
+    "btn_back_to_admin": {
+        "ru": "< Вернуться в админ панель",
+        "en": "< Back to admin panel"
+    },
+    "btn_back_admin": {
+        "ru": "< Выйти из админ панели",
+        "en": "< Close admin panel"
+    },
     "btn_to_menu": {
         "ru": "Перейти в меню",
         "en": "Open menu"
@@ -78,6 +90,10 @@
     "btn_logout": {
         "ru": "Выйти из аккаунта",
         "en": "Log out of your account"
+    },
+    "btn_admin": {
+        "ru": "\uD83D\uDCCA Админ раздел",
+        "en": "\uD83D\uDCCA Admin panel"
     },
     "btn_period_1": {
         "ru": "1д",

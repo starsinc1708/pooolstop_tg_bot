@@ -5,9 +5,11 @@ from handlers.states import Greeting
 from keyboards.Inline_keyboards import (
     main_info_keyboard, back_keyboard, settings_keyboard,
     ratings_keyboard, notifications_keyboard,
-    language_keyboard, settings_logout_keyboard, service_keyboard, how_to_earn_more_keyboard
+    language_keyboard, settings_logout_keyboard, service_keyboard, how_to_earn_more_keyboard, main_info_keyboard_admin,
+    admin_panel_keyboard, new_user_stat_keyboard
 )
 from pooolstop_api import tg_api
+from utils import admin_panel_helper
 from utils.locale_parser import get_message_text
 import database as db
 from utils.logger import handle_update
@@ -35,11 +37,54 @@ async def edit_message_and_set_state(callback, state, message_text, reply_markup
 @router.callback_query(F.data.startswith("btn_continue"))
 async def send_main_info(callback: types.CallbackQuery, state: FSMContext):
     locale = await db.get_user_locale(callback.from_user)
+    is_admin = await db.is_user_admin(callback.from_user)
     await edit_message_and_set_state(
         callback, state,
         get_message_text(locale, "main_info_linked"),
-        main_info_keyboard(locale),
+        main_info_keyboard_admin(locale) if is_admin else main_info_keyboard(locale),
         Greeting.main_menu
+    )
+
+
+@router.callback_query(StateFilter(Greeting.main_menu), F.data.startswith("main_info_open_admin_panel"))
+async def send_admin_panel(callback: types.CallbackQuery, state: FSMContext):
+    locale = await db.get_user_locale(callback.from_user)
+    await edit_message_and_set_state(
+        callback, state,
+        get_message_text(locale, "admin_panel"),
+        admin_panel_keyboard(locale),
+        Greeting.admin_panel
+    )
+
+@router.callback_query(StateFilter(Greeting.admin_panel), F.data.startswith("admin_back"))
+async def send_main_info_from_admin(callback: types.CallbackQuery, state: FSMContext):
+    locale = await db.get_user_locale(callback.from_user)
+    is_admin = await db.is_user_admin(callback.from_user)
+    await edit_message_and_set_state(
+        callback, state,
+        get_message_text(locale, "main_info_linked"),
+        main_info_keyboard_admin(locale) if is_admin else main_info_keyboard(locale),
+        Greeting.main_menu
+    )
+
+@router.callback_query(StateFilter(Greeting.new_users_stat), F.data.startswith("back_to_admin"))
+async def send_admin_from_back(callback: types.CallbackQuery, state: FSMContext):
+    locale = await db.get_user_locale(callback.from_user)
+    await edit_message_and_set_state(
+        callback, state,
+        get_message_text(locale, "admin_panel"),
+        admin_panel_keyboard(locale),
+        Greeting.admin_panel
+    )
+
+@router.callback_query(StateFilter(Greeting.admin_panel), F.data.startswith("admin_new_users_stat"))
+async def send_new_user_stat(callback: types.CallbackQuery, state: FSMContext):
+    locale = await db.get_user_locale(callback.from_user)
+    await edit_message_and_set_state(
+        callback, state,
+        get_message_text(locale, "new_user_stat"),
+        new_user_stat_keyboard(locale),
+        Greeting.new_users_stat
     )
 
 
@@ -119,6 +164,15 @@ async def send_ratings(callback: types.CallbackQuery, state: FSMContext):
     )
 
 
+@router.callback_query(StateFilter(Greeting.new_users_stat), F.data.startswith("new_user_stat_"))
+async def send_new_user_stat_from_period(callback: types.CallbackQuery, state: FSMContext):
+    period = int(callback.data.split("_")[3]) if len(callback.data.split("_")) == 4 else 1
+    locale = await db.get_user_locale(callback.from_user)
+    file = await admin_panel_helper.create_new_user_stat_file(period)
+    await callback.message.answer_document(file)
+    await callback.message.answer("/start чтобы выйти [заглушка]")
+
+
 @router.callback_query(F.data.startswith("main_info_ratings_"))
 async def send_ratings_page(callback: types.CallbackQuery):
     period = int(callback.data.split("_")[3]) if len(callback.data.split("_")) == 4 else 7
@@ -164,11 +218,12 @@ async def send_language_settings(callback: types.CallbackQuery, state: FSMContex
 @router.callback_query(F.data.startswith("language_"))
 async def accept_language(callback: types.CallbackQuery, state: FSMContext):
     await db.set_user_locale(callback.from_user, callback.data.split("_")[1])  
-    locale = await db.get_user_locale(callback.from_user)  
+    locale = await db.get_user_locale(callback.from_user)
+    is_admin = await db.is_user_admin(callback.from_user)
     await edit_message_and_set_state(
         callback, state,
         get_message_text(locale, "main_info_linked"),
-        main_info_keyboard(locale),
+        main_info_keyboard_admin(locale) if is_admin else main_info_keyboard(locale),
         Greeting.main_menu
     )
 
@@ -212,8 +267,8 @@ async def send_after_unsubscribe(callback: types.CallbackQuery, state: FSMContex
         "ratings",
     )  
     tg_api.delete_scheduler(callback.from_user, callback.message.chat)
-    locale = await db.get_user_locale(callback.from_user)  
-
+    locale = await db.get_user_locale(callback.from_user)
+    is_admin = await db.is_user_admin(callback.from_user)
     await callback.message.edit_text(
         text=get_message_text(locale, "successful_unsub"),
         parse_mode="HTML",
@@ -223,7 +278,7 @@ async def send_after_unsubscribe(callback: types.CallbackQuery, state: FSMContex
         get_message_text(locale, "main_info_linked"),
         parse_mode="HTML",
         disable_web_page_preview=True,
-        reply_markup=main_info_keyboard(locale)
+        reply_markup=main_info_keyboard_admin(locale) if is_admin else main_info_keyboard(locale)
     )
     await state.set_state(Greeting.main_menu)
     await db.set_user_state(callback.from_user.id, state=await state.get_state())  
@@ -234,10 +289,11 @@ async def send_after_unsubscribe(callback: types.CallbackQuery, state: FSMContex
 
 @router.callback_query(F.data.startswith("main_info_back"))
 async def send_main_info_after_back_btn(callback: types.CallbackQuery, state: FSMContext):
-    locale = await db.get_user_locale(callback.from_user)  
+    locale = await db.get_user_locale(callback.from_user)
+    is_admin = await db.is_user_admin(callback.from_user)
     await edit_message_and_set_state(
         callback, state,
         get_message_text(locale, "main_info_linked"),
-        main_info_keyboard(locale),
+        main_info_keyboard_admin(locale) if is_admin else main_info_keyboard(locale),
         Greeting.main_menu
     )

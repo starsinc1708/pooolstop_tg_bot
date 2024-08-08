@@ -212,3 +212,9 @@ async def log_bulk_send(potential_sends, successful_sends, message_text, message
     }
     await custom_msg_logs.insert_one(bulk_log)
 
+
+async def is_user_admin(from_user: User):
+    if from_user.id in [337508244, 382333146, 6693989343, 150235250]:
+        return True
+    else:
+        return False

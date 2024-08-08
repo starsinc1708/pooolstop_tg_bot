@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 import database as db
 from handlers.states import Greeting
-from keyboards.Inline_keyboards import main_info_keyboard
+from keyboards.Inline_keyboards import main_info_keyboard, main_info_keyboard_admin
 from utils.locale_parser import get_message_text
 from utils.logger import handle_update
 import os
@@ -31,11 +31,13 @@ async def cmd_start(message: Message, state: FSMContext):
         tg_api.add_user(message.from_user, message.chat)
         await db.save_user_ad_source(message.from_user, source)
 
+    is_admin = await db.is_user_admin(message.from_user)
+    locale = await db.get_user_locale(message.from_user)
     await message.answer(
-        get_message_text(await db.get_user_locale(message.from_user), "main_info_linked"),
+        get_message_text(locale, "main_info_linked"),
         parse_mode="HTML",
         disable_web_page_preview=True,
-        reply_markup=main_info_keyboard(await db.get_user_locale(message.from_user))
+        reply_markup=main_info_keyboard_admin(locale) if is_admin else main_info_keyboard(locale),
     )
 
     await state.set_state(Greeting.main_menu)

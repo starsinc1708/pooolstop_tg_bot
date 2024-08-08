@@ -2,6 +2,8 @@ from aiogram.fsm.state import StatesGroup, State
 
 
 class Greeting(StatesGroup):
+    new_users_stat = State()
+    admin_panel = State()
     settings_page = State()
     profile_page_statistics = State()
     profile_page_workers = State()

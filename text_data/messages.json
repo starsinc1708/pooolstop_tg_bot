@@ -134,5 +134,13 @@
     "how_to_earn_more": {
         "ru": "Мы точно знаем, что:\n\n\uD83D\uDCA3 МАЙНИНГ С МАКСИМАЛЬНЫМ ДОХОДОМ ВОЗМОЖЕН \nЗа 7 лет в майнинге изучили все  “подводные” камни. Создали сервис  и гарантируем, что доходность с нами будет еще выше.\n\n\uD83D\uDCB5 СЛОЖНО СРАВНИВАТЬ РЕАЛЬНУЮ ДОХОДНОСТЬ НА РАЗЛИЧНЫХ ПУЛАХ\nМы создали независимый рейтинг доходности пулов, которому доверяем сами. Протестировать рейтинг можно по кнопке внизу.\n\n\uD83C\uDFC3 ПОИСК ПОДХОДЯЩЕГО ТОПОВОГО ПУЛА ЗАНИМАЕТ МНОГО ВРЕМЕНИ\nМы автоматически переключаем на ТОПовый пул без потери времени, так как время для нас-деньги.\n\n\uD83D\uDCB5\uD83D\uDCB5\uD83D\uDCB5 <a href='https://t.me/PooolsTopBot/pooolstop_mini_app'>Получить VIP-условия от ТОПовых пулов прямо сейчас</a>\n\n<a href='https://youtu.be/dOdlaVBQb14?si=eqBG_QIudoacoZau'>Как работает сервис?</a>\n",
         "en": "We know for sure that:\n\n\uD83D\uDCA3 MINING WITH MAXIMUM INCOME IS POSSIBLE\nFor 7 years in mining, we have studied all the “pitfalls”. We have created a service and guarantee that the profitability with us will be even higher.\n\n\uD83D\uDCB5 IT IS DIFFICULT TO COMPARE THE REAL PROFITABILITY ON DIFFERENT POOLS\nWe have created an independent rating of the profitability of pools, which we trust ourselves. You can test the rating by clicking the button at the bottom!\n\n\uD83C\uDFC3 IT TAKES A LONG TIME TO FIND A SUITABLE TOP POOL\nWe automatically switch to the TOP pool without wasting time, since time is money for us.\n\n\uD83D\uDCB5\uD83D\uDCB5\uD83D\uDCB5 <a href='https://t.me/PooolsTopBot/pooolstop_mini_app'>Get VIP conditions from top pools right now!</a>\n\n<a href='https://youtu.be/dOdlaVBQb14?si=eqBG_QIudoacoZau'>How does the service work?</a>\n"
+    },
+    "admin_panel": {
+        "ru": "♦\uFE0F➖➖➖➖♦\uFE0F\n Это админ панель\n♦\uFE0F➖➖➖➖♦\uFE0F",
+        "en": "♦\uFE0F➖➖➖➖♦\uFE0F\n Это админ панель\n♦\uFE0F➖➖➖➖♦\uFE0F"
+    },
+    "new_user_stat": {
+        "ru": "♦\uFE0F Выберите период!\n(статистика по новым пользователям за последние N дней.",
+        "en": "♦\uFE0F Выберите период!\n(статистика по новым пользователям за последние N дней."
     }
 }

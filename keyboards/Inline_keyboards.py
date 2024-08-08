@@ -23,6 +23,68 @@ def get_inline_keyboard(message_type, locale="en"):
         return back_keyboard(locale)
 
 
+def main_info_keyboard_admin(locale: str) -> InlineKeyboardMarkup:
+    kb = InlineKeyboardBuilder()
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_learn_more'),
+            callback_data="main_info_learn_more"
+        ),
+    )
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_ratings'),
+            callback_data="main_info_ratings"
+        ),
+    )
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_how_to_earn_more'),
+            callback_data="main_info_how_to_earn_more"
+        ),
+    )
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_profile'),
+            web_app=WebAppInfo(url=URL_BASE)
+        ),
+    )
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_service'),
+            callback_data="main_info_service"
+        ),
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_settings'),
+            callback_data="main_info_settings"
+        ),
+    )
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_admin'),
+            callback_data="main_info_open_admin_panel"
+        ),
+    )
+    return kb.as_markup(resize_keyboard=True)
+
+def admin_panel_keyboard(locale: str) -> InlineKeyboardMarkup:
+    kb = InlineKeyboardBuilder()
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_new_user_stat'),
+            callback_data="admin_new_users_stat"
+        ),
+    )
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_back_admin'),
+            callback_data="admin_back"
+        ),
+    )
+    return kb.as_markup(resize_keyboard=True)
+
+
+
 def main_info_keyboard(locale: str) -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     kb.row(
@@ -190,6 +252,31 @@ def settings_logout_keyboard(locale: str) -> InlineKeyboardMarkup:
     return kb.as_markup(resize_keyboard=True)
 
 
+def new_user_stat_keyboard(locale: str) -> InlineKeyboardMarkup:
+    kb = InlineKeyboardBuilder()
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_period_1'),
+            callback_data="new_user_stat_1"
+        ),
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_period_7'),
+            callback_data="new_user_stat_7"
+        ),
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_period_30'),
+            callback_data="new_user_stat_30"
+        )
+    )
+    kb.row(
+        types.InlineKeyboardButton(
+            text=get_btn_text(locale, 'btn_back_to_admin'),
+            callback_data="back_to_admin"
+        ),
+    )
+    return kb.as_markup(resize_keyboard=True)
+
+
 def ratings_keyboard(locale: str) -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     kb.row(
@@ -289,17 +376,6 @@ def linked_profile_keyboard(locale: str) -> InlineKeyboardMarkup:
             text=get_btn_text(locale, 'btn_back'),
             callback_data="main_info_back"
         ),
-    )
-    return kb.as_markup(resize_keyboard=True)
-
-
-def continue_keyboard(locale: str) -> InlineKeyboardMarkup:
-    kb = InlineKeyboardBuilder()
-    kb.row(
-        types.InlineKeyboardButton(
-            text=get_btn_text(locale, 'btn_next'),
-            callback_data="main_info_back"
-        )
     )
     return kb.as_markup(resize_keyboard=True)
 
