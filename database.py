@@ -153,7 +153,7 @@ async def add_callback_log(callback: CallbackQuery):
     message_data = {
         'message_id': callback.message.message_id,
         'user_id': callback.from_user.id,
-        'datetime': callback.message.date,
+        'datetime': datetime.datetime.utcnow(),
         'callback_data': callback.data
     }
     await callback_logs.insert_one(message_data)
@@ -162,7 +162,7 @@ async def add_command_log(message: Message):
     command_log = {
         'user_id': message.from_user.id,
         'command': message.text,
-        'datetime': message.date,
+        'datetime': datetime.datetime.utcnow(),
     }
     await command_logs.insert_one(command_log)
 
@@ -170,7 +170,7 @@ async def add_message_log(message: Message):
     message_log = {
         'user_id': message.from_user.id,
         'message': message.text,
-        'datetime': message.date,
+        'datetime': datetime.datetime.utcnow(),
     }
     await message_logs.insert_one(message_log)
 
