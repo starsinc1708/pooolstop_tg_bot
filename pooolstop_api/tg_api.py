@@ -42,7 +42,7 @@ def prepare_data(user: User, chat: Chat, scheduler=False, scheduler_period="", p
 
 
 def send_request(user_id, data):
-    response = requests.put(f"{url}/api/telegram/save-or-update/{user_id}", json=data, headers=headers)
+    response = requests.put(f"{url}/api/telegram/save-or-update/", json=data, headers=headers)
     return response
 
 def add_user(user: User, chat: Chat):
