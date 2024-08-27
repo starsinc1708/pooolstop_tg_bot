@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 URL_BASE = os.getenv('WEBAPP_URL_BASE')
+URL_MINIAPP = os.getenv('WEBAPP_URL_MINIAPP')
 ABOUT_US_URL = os.getenv('ABOUT_US_URL')
 QUESTION_BOT_URL = os.getenv('QUESTION_BOT_URL')
 
@@ -46,7 +47,7 @@ def main_info_keyboard_admin(locale: str) -> InlineKeyboardMarkup:
     kb.row(
         types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_profile'),
-            web_app=WebAppInfo(url=URL_BASE)
+            url=URL_MINIAPP
         ),
     )
     kb.row(
@@ -108,7 +109,7 @@ def main_info_keyboard(locale: str) -> InlineKeyboardMarkup:
     kb.row(
         types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_profile'),
-            web_app=WebAppInfo(url=URL_BASE)
+            url=URL_MINIAPP
         ),
     )
     kb.row(
@@ -140,7 +141,7 @@ def how_to_earn_more_keyboard(locale: str) -> InlineKeyboardMarkup:
     kb.row(
         types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_profile'),
-            web_app=WebAppInfo(url=URL_BASE)
+            url=URL_MINIAPP
         ),
     )
     kb.row(
@@ -168,7 +169,7 @@ def registration_proposal_keyboard(locale: str) -> InlineKeyboardMarkup:
     kb.row(
         types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_register_in_webapp'),
-            web_app=WebAppInfo(url=URL_BASE)
+            url=URL_MINIAPP
         ),
     )
     kb.row(
@@ -352,7 +353,7 @@ def linked_profile_keyboard(locale: str) -> InlineKeyboardMarkup:
     kb.row(
         types.InlineKeyboardButton(
             text=get_btn_text(locale, 'btn_webapp_open'),
-            web_app=WebAppInfo(url=URL_BASE)
+            url=URL_MINIAPP
         ),
     )
     kb.row(
